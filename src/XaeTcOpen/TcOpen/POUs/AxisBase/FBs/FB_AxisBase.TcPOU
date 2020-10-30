@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_AxisBase" Id="{dbf7b8f1-ae81-4287-be87-eea1c81c44ed}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisBase IMPLEMENTS ITF_Base
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	_axis : AXIS_REF;
+	_power : MC_Power;
+	_reset : MC_Reset;
+	_status : ST_AxisStatus;
+	_override : LREAL;
+	_enableNegativeDirection : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_power(Axis := _axis);
+_reset(Axis := _axis);
+_status := GetStatus();]]></ST>
+    </Implementation>
+    <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
+    <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
+    <Method Name="Disable" Id="{1e1f04b1-019f-447e-9dae-9f9045650318}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PUBLIC Disable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_power.Enable := FALSE;
+IF NOT _power.Status THEN
+	Disable := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{db2ed9b3-ee26-4fe1-966d-2deb43f58bd6}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_power.Enable := TRUE;
+_power.Enable_Negative := _enableNegativeDirection;
+_power.Enable_Positive := TRUE;
+_power.Override := _override;
+IF (_power.Status) THEN
+	Enable := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="EnableNegativeDirection" Id="{fec7bd58-0f65-4325-8cb9-d508f03f0c9f}" FolderPath="Properties\">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY EnableNegativeDirection : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{cf9e60e9-91e1-4213-a3db-cb0cd7337eb8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnableNegativeDirection := _enableNegativeDirection;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{410ae65e-bdaf-49c2-b8dd-de0099ba81ce}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_enableNegativeDirection := EnableNegativeDirection;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="GetStatus" Id="{247164c8-fa59-429a-8f8b-9799cf350735}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PROTECTED GetStatus : st_AxisStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_axis.ReadStatus();
+GetStatus := _axis.Status;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Override" Id="{ed9bd1fd-b6a2-4b9c-995d-0becc00f218f}" FolderPath="Properties\">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY Override : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{0accf564-84f3-4f9d-b305-14de34ae3804}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Override := _override;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e8ddcebe-6280-4196-af0c-edff922a562c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_override := Override;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Reset" Id="{2ad1e6d6-18b8-4736-81d3-000694ff865a}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_reset.Execute := TRUE;
+IF _reset.Done AND NOT _reset.Error THEN
+	Reset := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="UMLStereoTypeContainerObject">
+            <v n="IsType" t="UMLType">BaseArea</v>
+            <v n="Stereotype">""</v>
+            <d n="Stereotypes" t="Hashtable" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="String">System.String</Type>
+          <Type n="UMLStereoTypeContainerObject">{30250973-b110-4e31-b562-c102e042dca4}</Type>
+          <Type n="UMLType">{0197b136-405a-42ee-bb27-fd08b621d0cf}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+    <LineIds Name="FB_AxisBase">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Disable">
+      <LineId Id="13" Count="0" />
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enable">
+      <LineId Id="20" Count="2" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.GetStatus">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Reset">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

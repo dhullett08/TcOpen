@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_AxisBase_Test" Id="{230b4692-e0d3-47b3-bec4-64586f968f76}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisBase_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+	TestSuiteTimer : TON := (PT := T#5S);
+    TestOneFinished : BOOL;
+	TestTwoFinished : BOOL;
+	axis : FB_AxisBase;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[AxisEnableTest();
+AxisDisableTest();
+
+
+axis();]]></ST>
+    </Implementation>
+    <Method Name="AxisDisableTest" Id="{a7ea732f-3556-4d51-a4b7-7a3e3081cbd1}">
+      <Declaration><![CDATA[METHOD AxisDisableTest : BOOL
+VAR
+	Result : BOOL;
+	ExpectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF TestOneFinished AND NOT TestTwoFinished THEN
+	TEST('Check Axis Disable');
+	
+	result := axis.Disable();
+	
+	TestSuiteTimer(IN := TRUE);
+	
+	IF TestSuiteTimer.Q THEN
+		AssertEquals(Actual := Result, Expected := ExpectedResult, Message := 'Error not equal');
+		TestTwoFinished := TRUE;	
+	END_IF
+	IF TestTwoFinished THEN
+		TEST_FINISHED_NAMED('Check Axis Disable');
+		TestSuiteTimer(IN := FALSE);
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AxisEnableTest" Id="{30d4f704-1d5f-48d3-9d2f-50131ef5e9ec}">
+      <Declaration><![CDATA[METHOD AxisEnableTest : Bool
+VAR
+	Result : BOOL;
+	ExpectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT TestOneFinished THEN
+	TEST('Check Axis Enable');
+	
+	result := axis.Enable();
+	
+	TestSuiteTimer(IN := TRUE);
+	
+	IF TestSuiteTimer.Q THEN
+		AssertEquals(Actual := Result, Expected := ExpectedResult, Message := 'Error not equal');
+		TestOneFinished := TRUE;	
+	END_IF
+	IF TestOneFinished THEN
+		TEST_FINISHED_NAMED('Check Axis Enable');
+		TestSuiteTimer(IN := FALSE);
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_AxisBase_Test">
+      <LineId Id="43" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase_Test.AxisDisableTest">
+      <LineId Id="50" Count="0" />
+      <LineId Id="37" Count="12" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="51" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase_Test.AxisEnableTest">
+      <LineId Id="36" Count="0" />
+      <LineId Id="6" Count="1" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="11" Count="4" />
+      <LineId Id="31" Count="1" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="33" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

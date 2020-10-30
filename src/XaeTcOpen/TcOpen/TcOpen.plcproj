@@ -24,6 +24,15 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\FBs\FB_AxisBase.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\ITFs\ITF_Base.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\Test FBs\FB_AxisBase_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\FBs\FB_Cylinder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +58,10 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\AxisBase" />
+    <Folder Include="POUs\AxisBase\FBs" />
+    <Folder Include="POUs\AxisBase\ITFs" />
+    <Folder Include="POUs\AxisBase\Test FBs" />
     <Folder Include="POUs\Cylinders" />
     <Folder Include="POUs\Cylinders\ITFs" />
     <Folder Include="POUs\Cylinders\FBs" />
@@ -58,6 +71,10 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="Tc2_MC2">
+      <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
