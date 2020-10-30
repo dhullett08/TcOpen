@@ -13,6 +13,7 @@ VAR
 	_status : ST_AxisStatus;
 	_override : LREAL;
 	_enableNegativeDirection : BOOL;
+	_enabled : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,9 +29,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_power.Enable := FALSE;
-IF NOT _power.Status THEN
+        <ST><![CDATA[IF NOT _power.Status THEN
 	Disable := TRUE;
+	_enabled := FALSE;
+ELSE
+	_power.Enable := FALSE;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -40,15 +43,28 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_power.Enable := TRUE;
-_power.Enable_Negative := _enableNegativeDirection;
-_power.Enable_Positive := TRUE;
-_power.Override := _override;
-IF (_power.Status) THEN
+        <ST><![CDATA[IF (_power.Status) THEN
 	Enable := TRUE;
+	_enabled := TRUE;
+ELSE
+	_power.Enable := TRUE;
+	_power.Enable_Negative := _enableNegativeDirection;
+	_power.Enable_Positive := TRUE;
+	_power.Override := _override;
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Enabled" Id="{5632354a-4462-4802-be31-68adbf70f687}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Enabled : bool]]></Declaration>
+      <Get Name="Get" Id="{438cd9c9-cfc0-463c-a089-72c0119c0d70}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Enabled := _enabled;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="EnableNegativeDirection" Id="{fec7bd58-0f65-4325-8cb9-d508f03f0c9f}" FolderPath="Properties\">
       <Declaration><![CDATA[{warning 'add property implementation'}
 PROPERTY EnableNegativeDirection : BOOL
@@ -135,14 +151,14 @@ END_IF]]></ST>
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Disable">
-      <LineId Id="13" Count="0" />
-      <LineId Id="3" Count="1" />
+      <LineId Id="14" Count="4" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enable">
-      <LineId Id="20" Count="2" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="3" Count="1" />
+      <LineId Id="23" Count="7" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enabled.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.EnableNegativeDirection.Get">
