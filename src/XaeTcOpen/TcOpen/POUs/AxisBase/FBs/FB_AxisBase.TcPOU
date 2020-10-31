@@ -14,8 +14,9 @@ VAR
 	_override : LREAL;
 	_enableNegativeDirection : BOOL;
 	_enabled : BOOL;
-END_VAR
-]]></Declaration>
+	_axisError : BOOL;
+	_axisErrorId : UDINT;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[_power(Axis := _axis);
 _reset(Axis := _axis);
@@ -23,6 +24,17 @@ _status := GetStatus();]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
     <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
+    <Property Name="AxisError" Id="{d4aa8fa1-45da-40d7-ab03-4868e0a933e2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC AxisError : bool]]></Declaration>
+      <Get Name="Get" Id="{c16edfc0-b3ab-4905-8710-c810bedfdd26}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AxisError := _axisError;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="Disable" Id="{1e1f04b1-019f-447e-9dae-9f9045650318}" FolderPath="Functions\">
       <Declaration><![CDATA[METHOD PUBLIC Disable : BOOL
 VAR_INPUT
@@ -93,7 +105,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_axis.ReadStatus();
-GetStatus := _axis.Status;]]></ST>
+_axisError := _axis.Status.Error;
+_axisErrorId := _axis.Status.ErrorID;
+GetStatus := _axis.Status;
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Override" Id="{ed9bd1fd-b6a2-4b9c-995d-0becc00f218f}" FolderPath="Properties\">
@@ -150,12 +165,15 @@ END_IF]]></ST>
       <LineId Id="3" Count="1" />
       <LineId Id="2" Count="0" />
     </LineIds>
+    <LineIds Name="FB_AxisBase.AxisError.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
     <LineIds Name="FB_AxisBase.Disable">
-      <LineId Id="14" Count="4" />
+      <LineId Id="3" Count="4" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enable">
-      <LineId Id="23" Count="7" />
+      <LineId Id="3" Count="7" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enabled.Get">
@@ -169,7 +187,9 @@ END_IF]]></ST>
     </LineIds>
     <LineIds Name="FB_AxisBase.GetStatus">
       <LineId Id="3" Count="0" />
+      <LineId Id="8" Count="1" />
       <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Override.Get">
       <LineId Id="2" Count="0" />
