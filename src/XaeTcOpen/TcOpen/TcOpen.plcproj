@@ -27,6 +27,12 @@
     <Compile Include="POUs\AxisBase\FBs\FB_AxisBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\FBs\I_Stop.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\FBs\T_Stop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AxisBase\ITFs\ITF_AxisBase.TcIO">
       <SubType>Code</SubType>
     </Compile>

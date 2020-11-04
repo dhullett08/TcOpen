@@ -10,7 +10,8 @@ VAR
 	_axis : AXIS_REF;
 	_power : MC_Power;
 	_reset : MC_Reset;
-	_stop : MC_Stop;
+	_defaultStop : T_Stop;
+	_stop : I_Stop := _defaultStop;
 	_override : LREAL;
 	_safetyOk : BOOL;
 	stopTrigger : F_TRIG;
@@ -18,9 +19,13 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[_power(Axis := _axis);
 _reset(Axis := _axis);
+_defaultStop();
 
 stopTrigger( CLK := _safetyOk );
-_stop(Axis := _axis, Execute := stopTrigger.Q );
+IF stopTrigger.Q THEN
+	_stop.Stop();
+END_IF
+
 _safetyOk := FALSE;
 
 _reset.Execute := FALSE;
@@ -84,6 +89,17 @@ Enable := SafetyOk; // indicates whether possible.
         </Implementation>
       </Set>
     </Property>
+    <Method Name="FB_init" Id="{12aa2494-4444-478a-8c05-03e7dd9b133e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_defaultStop.RegisterAxis( axisRef := THIS^._axis );]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Override" Id="{ed9bd1fd-b6a2-4b9c-995d-0becc00f218f}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Override : LREAL
 ]]></Declaration>
@@ -124,6 +140,21 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Method Name="SetStopStrategy" Id="{4771ee84-b149-4934-aa86-a93b1387e858}" FolderPath="Functions\">
+      <Declaration><![CDATA[// Optional. Change the Stop Strategy. Default uses MC_Stop.
+METHOD PUBLIC SetStopStrategy : BOOL
+VAR_INPUT
+	strategy : I_Stop;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Enabled THEN // Error
+	RETURN; 
+END_IF
+
+_stop := strategy;]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Status" Id="{01550466-7fbb-439d-b91e-bfe1a59105ae}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Status : REFERENCE TO Tc2_MC2.ST_AxisStatus
 ]]></Declaration>
