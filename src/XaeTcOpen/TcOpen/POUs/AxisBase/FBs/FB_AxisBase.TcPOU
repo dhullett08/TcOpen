@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <POU Name="FB_AxisBase" Id="{dbf7b8f1-ae81-4287-be87-eea1c81c44ed}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisBase IMPLEMENTS ITF_AxisBase
 VAR_INPUT
@@ -186,5 +186,58 @@ Status REF= _axis.Status;]]></ST>
         </TypeList>
       </XmlArchive>
     </ObjectProperties>
+    <LineIds Name="FB_AxisBase">
+      <LineId Id="3" Count="12" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Disable">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enable">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enabled.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnablePositiveDirection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnablePositiveDirection.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.FB_init">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Reset">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.SafetyOk.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.SafetyOk.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.SetStopStrategy">
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Status.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

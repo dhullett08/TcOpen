@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <POU Name="FB_AxisBase_Test" Id="{230b4692-e0d3-47b3-bec4-64586f968f76}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisBase_Test EXTENDS TcUnit.FB_TestSuite
 VAR
@@ -90,5 +90,17 @@ END_VAR
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <LineIds Name="FB_AxisBase_Test">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase_Test.AxisDisableTest">
+      <LineId Id="3" Count="24" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase_Test.AxisEnableTest">
+      <LineId Id="3" Count="23" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

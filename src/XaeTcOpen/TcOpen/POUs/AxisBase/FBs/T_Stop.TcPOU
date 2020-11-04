@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <POU Name="T_Stop" Id="{58c15be9-02d8-461a-b27e-2c5b2802f508}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Stop IMPLEMENTS I_Stop
 VAR
@@ -76,5 +76,27 @@ axRef REF= axisRef;]]></ST>
         <ST><![CDATA[_stop.Execute := TRUE;]]></ST>
       </Implementation>
     </Method>
+    <LineIds Name="T_Stop">
+      <LineId Id="3" Count="6" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Busy.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Error.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Parameterise">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.RegisterAxis">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Stop">
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

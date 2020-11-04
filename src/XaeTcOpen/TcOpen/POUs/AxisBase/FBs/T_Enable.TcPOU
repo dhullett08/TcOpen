@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="T_Enable" Id="{73c8894a-9971-4c06-882a-bfe6e428e44d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC T_Enable IMPLEMENTS I_Enable
+VAR
+	axRef : REFERENCE TO AXIS_REF;
+	_power : MC_Power;
+	_busy : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(axRef) THEN
+	RETURN;
+END_IF
+
+_power(Axis := axRef);]]></ST>
+    </Implementation>
+    <Property Name="Busy" Id="{373d9411-fe86-4b98-8012-9ce31029fdc5}">
+      <Declaration><![CDATA[PROPERTY Busy : bool]]></Declaration>
+      <Get Name="Get" Id="{88e7bc56-0d60-4bdf-911b-f67de91427db}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := _busy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Disable" Id="{7521d3dd-ee87-4851-8f1e-3bdcf4457226}">
+      <Declaration><![CDATA[METHOD Disable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_power.Enable := false;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{eb8294f5-8810-4584-b2b7-40295e78a6f1}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_power.Enable := true;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Error" Id="{0ee63d32-bb49-4fc5-907a-f201d8797441}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Error : bool]]></Declaration>
+      <Get Name="Get" Id="{234676ec-7c08-444e-8d06-b4578fb9880c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _power.Error OR NOT __ISVALIDREF(axRef)]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Parameterise" Id="{cab59032-c731-4755-9942-acfc42775c4d}">
+      <Declaration><![CDATA[METHOD PUBLIC Parameterise : BOOL
+VAR_INPUT
+	override : LREAL;
+	enablePositive : BOOL;
+	enableNegative : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+
+_power.Override := override;
+_power.Enable_Negative := enableNegative;
+_power.Enable_Positive := enablePositive;
+
+Parameterise := true;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterAxis" Id="{a868cf8a-2d4d-4401-bd0c-1bfe9d59e3eb}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterAxis : BOOL
+VAR_IN_OUT
+	axisRef : AXIS_REF;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+axRef REF=	axisRef;
+
+RegisterAxis := true;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="T_Enable">
+      <LineId Id="9" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.Busy.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.Disable">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.Enable">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.Parameterise">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Enable.RegisterAxis">
+      <LineId Id="5" Count="2" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -30,6 +30,9 @@
     <Compile Include="POUs\AxisBase\FBs\I_Stop.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\FBs\T_Enable.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AxisBase\FBs\T_Stop.TcPOU">
       <SubType>Code</SubType>
     </Compile>

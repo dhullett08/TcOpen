@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.10">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.7">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000035}" TcBaseType="true" HideType="true">UINTARR2</Name>
@@ -1337,7 +1337,7 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 	</DataTypes>
-	<Project ProjectGUID="{2E6C2CE4-12CE-4A6F-A95F-B4C5E04FE0E4}" TargetNetId="192.168.137.199.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{2E6C2CE4-12CE-4A6F-A95F-B4C5E04FE0E4}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -1347,7 +1347,7 @@ External Setpoint Generation:
 		</System>
 		<Motion>
 			<NC>
-				<SafTask Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" AmsNetId="5.38.255.250.1.1">
+				<SafTask Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" AmsNetId="192.168.137.199.1.1">
 					<Name>NC-Task 1 SAF</Name>
 					<Vars VarGrpType="1" InsertType="1">
 						<Name>Inputs</Name>
@@ -1538,7 +1538,7 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbAxisBaseTest.actualAxis._axis.NcToPlc</Name>
+							<Name>MAIN.fbAxisBaseTest.axis._axis.NcToPlc</Name>
 							<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -1553,36 +1553,15 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbAxisBaseTest.actualAxis._axis.PlcToNc</Name>
+							<Name>MAIN.fbAxisBaseTest.axis._axis.PlcToNc</Name>
 							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
-					<Contexts>
-						<Context>
-							<Id NeedCalleeCall="true">0</Id>
-							<Name>PlcTask</Name>
-							<ManualConfig>
-								<OTCID>#x02010030</OTCID>
-							</ManualConfig>
-							<Priority>20</Priority>
-							<CycleTime>10000000</CycleTime>
-						</Context>
-					</Contexts>
 					<TaskPouOids>
 						<TaskPouOid Prio="20" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>
-		<Io/>
 	</Project>
-	<Mappings>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
-		<OwnerA Name="TIPC^TcOpen^TcOpen Instance">
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
-				<Link VarA="PlcTask Inputs^MAIN.fbAxisBaseTest.actualAxis._axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbAxisBaseTest.actualAxis._axis.PlcToNc" VarB="Inputs^FromPlc"/>
-			</OwnerB>
-		</OwnerA>
-	</Mappings>
 </TcSmProject>
