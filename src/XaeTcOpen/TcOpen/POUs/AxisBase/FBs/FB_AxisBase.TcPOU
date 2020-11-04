@@ -97,7 +97,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_defaultStop.RegisterAxis( axisRef := THIS^._axis );]]></ST>
+        <ST><![CDATA[SetStopStrategy( strategy := _defaultStop );]]></ST>
       </Implementation>
     </Method>
     <Property Name="Override" Id="{ed9bd1fd-b6a2-4b9c-995d-0becc00f218f}" FolderPath="Properties\">
@@ -152,7 +152,8 @@ END_VAR
 	RETURN; 
 END_IF
 
-_stop := strategy;]]></ST>
+_stop := strategy;
+_stop.RegisterAxis( axisRef := _axis );]]></ST>
       </Implementation>
     </Method>
     <Property Name="Status" Id="{01550466-7fbb-439d-b91e-bfe1a59105ae}" FolderPath="Properties\">
