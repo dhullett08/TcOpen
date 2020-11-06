@@ -9,44 +9,62 @@ END_VAR
 VAR
 	_axis : AXIS_REF;
 	_power : MC_Power;
-	_reset : MC_Reset;
-	_defaultStop : T_Stop;
-	_stop : I_Stop := _defaultStop;
-	_override : LREAL;
-	_safetyOk : BOOL;
-	stopTrigger : F_TRIG;
+	_asyncComd : T_AsyncCommand;
+	_cmdStatus : I_AsyncStatus := _asyncComd;
+	_enabled : BOOL;
+	_enable : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_power(Axis := _axis);
-_reset(Axis := _axis);
-_defaultStop();
+      <ST><![CDATA[
+Enable();
 
-stopTrigger( CLK := _safetyOk );
-IF stopTrigger.Q THEN
-	_stop.Stop();
-END_IF
+_power(Axis := _axis, 
+	Enable_Negative := EnableNegativeDirection, 
+	Enable_Positive := EnablePositiveDirection, 
+	Override := Override,
+	BufferMode := BufferMode);
 
-_safetyOk := FALSE;
-
-_reset.Execute := FALSE;
-_axis();
 ]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
     <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
-    <Method Name="Disable" Id="{1e1f04b1-019f-447e-9dae-9f9045650318}" FolderPath="Functions\">
-      <Declaration><![CDATA[METHOD PUBLIC Disable]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_power.Enable := FALSE;]]></ST>
-      </Implementation>
-    </Method>
+    <Property Name="BufferMode" Id="{818b37a9-0be6-4ba1-8b0d-bc1e90e4d84f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY BufferMode : MC_BufferMode]]></Declaration>
+      <Get Name="Get" Id="{fdca43b9-8aea-4fd6-b18b-f40dc5435c6b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b51575cd-3442-4d3d-ae40-54dd72e64f41}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Enable" Id="{db2ed9b3-ee26-4fe1-966d-2deb43f58bd6}" FolderPath="Functions\">
-      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
+      <Declaration><![CDATA[METHOD PRIVATE Enable : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_power.Enable := SafetyOk;
-Enable := SafetyOk; // indicates whether possible.
-]]></ST>
+        <ST><![CDATA[IF _enable THEN
+	_power.Enable := TRUE;
+	_asyncComd.SetBusy();
+END_IF
+
+IF _power.Status THEN
+	_enabled := TRUE;
+	_asyncComd.SetDone();
+END_IF
+
+IF _power.Error THEN
+	_enabled := FALSE;
+	_asyncComd.SetError();
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Property Name="Enabled" Id="{5632354a-4462-4802-be31-68adbf70f687}" FolderPath="Properties\">
@@ -89,6 +107,20 @@ Enable := SafetyOk; // indicates whether possible.
         </Implementation>
       </Set>
     </Property>
+    <Method Name="EnableRequest" Id="{216b5385-5e56-4405-a3df-a11e0ff5af27}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PUBLIC EnableRequest : I_AsyncStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Enabled THEN
+	RETURN;
+END_IF
+_enable := TRUE;
+EnableRequest := _cmdStatus;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{12aa2494-4444-478a-8c05-03e7dd9b133e}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -118,13 +150,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="Reset" Id="{2ad1e6d6-18b8-4736-81d3-000694ff865a}" FolderPath="Functions\">
-      <Declaration><![CDATA[METHOD PUBLIC Reset]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_reset.Execute := TRUE;
-]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="SafetyOk" Id="{6fc7ba7b-94e5-47d5-972f-24043b6bb627}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PUBLIC SafetyOk : BOOL]]></Declaration>
       <Get Name="Get" Id="{2541ad80-f046-473d-8605-209fa4d609d1}">
@@ -140,22 +165,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="SetStopStrategy" Id="{4771ee84-b149-4934-aa86-a93b1387e858}" FolderPath="Functions\">
-      <Declaration><![CDATA[// Optional. Change the Stop Strategy. Default uses MC_Stop.
-METHOD PUBLIC SetStopStrategy : BOOL
-VAR_INPUT
-	strategy : I_Stop;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF Enabled THEN // Error
-	RETURN; 
-END_IF
-
-_stop := strategy;
-_stop.RegisterAxis( axisRef := _axis );]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Status" Id="{01550466-7fbb-439d-b91e-bfe1a59105ae}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Status : REFERENCE TO Tc2_MC2.ST_AxisStatus
 ]]></Declaration>
@@ -187,15 +196,34 @@ Status REF= _axis.Status;]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="FB_AxisBase">
-      <LineId Id="3" Count="12" />
+      <LineId Id="69" Count="2" />
+      <LineId Id="3" Count="0" />
+      <LineId Id="38" Count="2" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="31" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
-    <LineIds Name="FB_AxisBase.Disable">
+    <LineIds Name="FB_AxisBase.BufferMode.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.BufferMode.Set">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enable">
-      <LineId Id="3" Count="1" />
       <LineId Id="2" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="17" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enabled.Get">
       <LineId Id="2" Count="0" />
@@ -212,6 +240,11 @@ Status REF= _axis.Status;]]></ST>
     <LineIds Name="FB_AxisBase.EnablePositiveDirection.Set">
       <LineId Id="2" Count="0" />
     </LineIds>
+    <LineIds Name="FB_AxisBase.EnableRequest">
+      <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="3" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
     <LineIds Name="FB_AxisBase.FB_init">
       <LineId Id="2" Count="0" />
     </LineIds>
@@ -221,18 +254,10 @@ Status REF= _axis.Status;]]></ST>
     <LineIds Name="FB_AxisBase.Override.Set">
       <LineId Id="2" Count="0" />
     </LineIds>
-    <LineIds Name="FB_AxisBase.Reset">
-      <LineId Id="3" Count="0" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
     <LineIds Name="FB_AxisBase.SafetyOk.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.SafetyOk.Set">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_AxisBase.SetStopStrategy">
-      <LineId Id="3" Count="4" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Status.Get">

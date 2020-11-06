@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="T_AsyncCommand" Id="{f43e4fe5-c7e6-4e3a-91bc-4289e77e3004}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_AsyncCommand IMPLEMENTS I_AsyncStatus
+VAR
+	_busy : BOOL;
+	_done : BOOL;
+	_error : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Busy" Id="{8fec2c7b-c104-4b70-ad59-4160bffd4620}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY Busy : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{b235158b-775b-47f4-ba67-c7d41c97db6d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Done" Id="{04c9b1c1-a215-43b5-a97a-da57ffbd1460}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY Done : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{d158fd72-60de-46f8-8c7f-a43a58c79538}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{2da61391-b887-42c2-9f86-c028099adb31}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{66d0aa16-ff42-4844-bc9d-5e8dfc692797}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetBusy" Id="{31d01a92-ef17-4667-b6a2-907df7a7a2ee}">
+      <Declaration><![CDATA[METHOD SetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_busy := TRUE;
+_done := FALSE;
+_error := false;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDone" Id="{9d386a3b-54a5-4fe5-a469-e8514beaca48}">
+      <Declaration><![CDATA[METHOD SetDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_done := TRUE;
+_error := FALSE;
+_busy := false;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{8efea276-9126-4129-851d-1b356128b3c3}">
+      <Declaration><![CDATA[METHOD SetError : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_error := TRUE;
+_done := FALSE;
+_busy := false;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="T_AsyncCommand">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.Busy.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.Done.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.SetBusy">
+      <LineId Id="5" Count="2" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.SetDone">
+      <LineId Id="5" Count="2" />
+    </LineIds>
+    <LineIds Name="T_AsyncCommand.SetError">
+      <LineId Id="5" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
