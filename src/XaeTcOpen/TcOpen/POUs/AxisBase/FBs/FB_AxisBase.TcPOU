@@ -9,22 +9,23 @@ END_VAR
 VAR
 	_axis : AXIS_REF;
 	_power : MC_Power;
+	_enable : BOOL;
+	
 	_asyncComd : T_AsyncCommand;
 	_cmdStatus : I_AsyncStatus := _asyncComd;
-	_enabled : BOOL;
-	_enable : BOOL;
+	
+	_EnableBehaviour : T_Enable;
+	_enabler : I_Enable := _EnableBehaviour;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[//command pattern code
 Enable();
+_power(Axis := _axis);
 
-_power(Axis := _axis, 
-	Enable_Negative := EnableNegativeDirection, 
-	Enable_Positive := EnablePositiveDirection, 
-	Override := Override,
-	BufferMode := BufferMode);
-
-]]></ST>
+//strategy pattern
+//maybe move to an init method
+_EnableBehaviour.RegisterAxis(axisRef := _axis);
+_EnableBehaviour();]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
     <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
@@ -35,7 +36,7 @@ _power(Axis := _axis,
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[BufferMode := _power.BufferMode;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{b51575cd-3442-4d3d-ae40-54dd72e64f41}">
@@ -43,7 +44,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_power.BufferMode := BufferMode;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -51,20 +52,23 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE Enable : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _enable THEN
+        <ST><![CDATA[//command pattern 
+IF _enable THEN
 	_power.Enable := TRUE;
 	_asyncComd.SetBusy();
 END_IF
 
 IF _power.Status THEN
-	_enabled := TRUE;
 	_asyncComd.SetDone();
 END_IF
 
 IF _power.Error THEN
-	_enabled := FALSE;
 	_asyncComd.SetError();
-END_IF]]></ST>
+END_IF
+
+
+//stategy pattern 
+_enabler.Enable();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Enabled" Id="{5632354a-4462-4802-be31-68adbf70f687}" FolderPath="Properties\">
@@ -121,6 +125,17 @@ EnableRequest := _cmdStatus;
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Error" Id="{685e9e28-60b0-4451-abc9-442af7e7e384}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : bool]]></Declaration>
+      <Get Name="Get" Id="{d6f5c0c8-b51b-4612-b813-c54f1cb0bc91}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _axis.Status.Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="FB_init" Id="{12aa2494-4444-478a-8c05-03e7dd9b133e}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -196,12 +211,13 @@ Status REF= _axis.Status;]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="FB_AxisBase">
-      <LineId Id="69" Count="2" />
+      <LineId Id="69" Count="1" />
       <LineId Id="3" Count="0" />
-      <LineId Id="38" Count="2" />
-      <LineId Id="42" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="78" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="2" Count="0" />
+      <LineId Id="80" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.BufferMode.Get">
       <LineId Id="2" Count="0" />
@@ -211,19 +227,21 @@ Status REF= _axis.Status;]]></ST>
     </LineIds>
     <LineIds Name="FB_AxisBase.Enable">
       <LineId Id="2" Count="0" />
+      <LineId Id="29" Count="0" />
       <LineId Id="6" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="7" Count="0" />
       <LineId Id="10" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="11" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="12" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
-      <LineId Id="18" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="28" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enabled.Get">
       <LineId Id="2" Count="0" />
@@ -244,6 +262,9 @@ Status REF= _axis.Status;]]></ST>
       <LineId Id="2" Count="0" />
       <LineId Id="7" Count="3" />
       <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Error.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.FB_init">
       <LineId Id="2" Count="0" />
