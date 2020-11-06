@@ -25,7 +25,11 @@ _power(Axis := _axis);
 //strategy pattern
 //maybe move to an init method
 _EnableBehaviour.RegisterAxis(axisRef := _axis);
-_EnableBehaviour();]]></ST>
+_EnableBehaviour();
+
+IF NOT _axis.Status.Disabled THEN
+	Enabled := true;
+END_IF]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
     <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
@@ -64,11 +68,7 @@ END_IF
 
 IF _power.Error THEN
 	_asyncComd.SetError();
-END_IF
-
-
-//stategy pattern 
-_enabler.Enable();]]></ST>
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Property Name="Enabled" Id="{5632354a-4462-4802-be31-68adbf70f687}" FolderPath="Properties\">
@@ -117,12 +117,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Enabled THEN
+        <ST><![CDATA[//command pattern
+IF Enabled THEN
 	RETURN;
 END_IF
 _enable := TRUE;
 EnableRequest := _cmdStatus;
-]]></ST>
+
+
+//stategy pattern 
+_enabler.Enable();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Error" Id="{685e9e28-60b0-4451-abc9-442af7e7e384}" FolderPath="Properties\">
@@ -218,6 +222,8 @@ Status REF= _axis.Status;]]></ST>
       <LineId Id="31" Count="0" />
       <LineId Id="2" Count="0" />
       <LineId Id="80" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="84" Count="2" />
     </LineIds>
     <LineIds Name="FB_AxisBase.BufferMode.Get">
       <LineId Id="2" Count="0" />
@@ -239,9 +245,6 @@ Status REF= _axis.Status;]]></ST>
       <LineId Id="14" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="17" Count="0" />
-      <LineId Id="26" Count="1" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="28" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Enabled.Get">
       <LineId Id="2" Count="0" />
@@ -259,8 +262,9 @@ Status REF= _axis.Status;]]></ST>
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.EnableRequest">
+      <LineId Id="14" Count="0" />
       <LineId Id="2" Count="0" />
-      <LineId Id="7" Count="3" />
+      <LineId Id="7" Count="6" />
       <LineId Id="6" Count="0" />
     </LineIds>
     <LineIds Name="FB_AxisBase.Error.Get">
