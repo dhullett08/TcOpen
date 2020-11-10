@@ -16,9 +16,15 @@ END_VAR
     <Method Name="Disable" Id="{44772350-f6a9-4090-868b-7247c661a587}">
       <Declaration><![CDATA[{warning 'add method implementation '}
 METHOD Disable : BOOL
-]]></Declaration>
+
+VAR
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_HINT, 'user has disabled.', '');
+pAxis^.SetState(pAxis^.IdleState);
+
+	
+	]]></ST>
       </Implementation>
     </Method>
     <Method Name="Enable" Id="{cf1e48b2-d807-4f0a-9199-df346117d3f4}">
@@ -53,6 +59,9 @@ METHOD Reset : BOOL
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="FB_Enabled.Disable">
+      <LineId Id="7" Count="1" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="12" Count="0" />
       <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="FB_Enabled.Enable">

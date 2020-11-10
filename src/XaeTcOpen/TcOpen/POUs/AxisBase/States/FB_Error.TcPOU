@@ -46,7 +46,8 @@ END_VAR
 METHOD Reset : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_HINT, 'user has reset.', '');
+pAxis^.SetState(pAxis^.EnabledState);]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Error">
@@ -62,6 +63,7 @@ METHOD Reset : BOOL
       <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="FB_Error.Reset">
+      <LineId Id="5" Count="0" />
       <LineId Id="4" Count="0" />
     </LineIds>
   </POU>

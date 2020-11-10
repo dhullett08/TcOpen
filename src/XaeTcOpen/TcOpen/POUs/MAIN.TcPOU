@@ -3,16 +3,19 @@
   <POU Name="MAIN" Id="{f20f72a3-44bd-4b01-bab9-6aeb1376a30d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	fbCylinderTest : FB_CylinderTest;
-	fbAxisBaseTest : FB_AxisBase_Test;
+	//fbCylinderTest : FB_CylinderTest;
+	//fbAxisBaseTest : FB_AxisBase_Test;
+	fbAxis : FB_Axis;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tcUnit.RUN();
+      <ST><![CDATA[//tcUnit.RUN();
+fbAxis();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="13" Count="0" />
       <LineId Id="7" Count="0" />
     </LineIds>
   </POU>

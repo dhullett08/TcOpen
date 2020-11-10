@@ -24,19 +24,13 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\Commands\T_AsyncCommand.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AxisBase\FBs\FB_Axis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase\FBs\FB_AxisBase.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AxisBase\FBs\T_AsyncCommand.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AxisBase\FBs\T_Enable.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AxisBase\FBs\T_Stop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase\ITFs\ITF_AxisBase.TcIO">
@@ -61,6 +55,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase\States\FB_Idle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\Strategies\T_Enable.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\Strategies\T_Stop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase\Test FBs\FB_AxisBase_Test.TcPOU">
@@ -94,6 +94,8 @@
     <Folder Include="POUs\AxisBase" />
     <Folder Include="POUs\AxisBase\FBs" />
     <Folder Include="POUs\AxisBase\ITFs" />
+    <Folder Include="POUs\AxisBase\Commands" />
+    <Folder Include="POUs\AxisBase\Strategies" />
     <Folder Include="POUs\AxisBase\States" />
     <Folder Include="POUs\AxisBase\Test FBs" />
     <Folder Include="POUs\Cylinders" />

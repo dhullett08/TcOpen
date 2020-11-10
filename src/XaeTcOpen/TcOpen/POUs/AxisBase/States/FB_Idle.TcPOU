@@ -26,7 +26,8 @@ METHOD Disable : BOOL
 METHOD Enable : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_HINT, 'user has enabled.', '');
+pAxis^.SetState(pAxis^.EnabledState);]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{606ceec6-c0ac-43a1-94cb-6490b257ef3c}">
@@ -56,6 +57,7 @@ METHOD Reset : BOOL
       <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="FB_Idle.Enable">
+      <LineId Id="5" Count="0" />
       <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="FB_Idle.FB_init">
