@@ -2,20 +2,18 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="T_MoveCylinderToPosition" Id="{02039554-bb19-4a40-8b78-b2344b5ef1db}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_MoveCylinderToPosition IMPLEMENTS I_CylinderMover, ITaskStatus
-VAR_IN_OUT
-	actuatorToSet : BOOL;
-	actuatorToClear : BOOL;
-	atPositionSensor : BOOL;	
-END_VAR
 VAR
+	_actuatorToSet : REFERENCE TO BOOL;
+	_actuatorToClear : REFERENCE TO BOOL;
+	_atPositionSensor : REFERENCE TO BOOL;	
 	_move : BOOL;
 	moveTimeout : TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[actuatorToSet S= _move;
-actuatorToClear R= _move;
-_move R= atPositionSensor; 
+      <ST><![CDATA[_actuatorToSet S= _move;
+_actuatorToClear R= _move;
+_move R= _atPositionSensor; 
 moveTimeout( IN := _move );]]></ST>
     </Implementation>
     <Method Name="Abort" Id="{5c1f8582-8e40-45d4-9c60-d868d00b7b54}">
@@ -40,7 +38,7 @@ moveTimeout( IN := _move );]]></ST>
       <Get Name="Get" Id="{cf1b6bf3-69e6-42e3-8a4d-aa62a891cf38}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Done := atPositionSensor;]]></ST>
+          <ST><![CDATA[Done := _atPositionSensor;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -59,11 +57,17 @@ moveTimeout( IN := _move );]]></ST>
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	actuatorToSet : REFERENCE TO BOOL;   
+	actuatorToClear : REFERENCE TO BOOL; 
+	atPositionSensor : REFERENCE TO BOOL;
 	moveTimeoutErr : TIME;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[moveTimeout.PT := moveTimeoutErr;]]></ST>
+        <ST><![CDATA[moveTimeout.PT := moveTimeoutErr;
+_actuatorToSet REF= actuatorToSet;
+_actuatorToClear REF=  actuatorToClear;
+_atPositionSensor REF= atPositionSensor;]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveToTarget" Id="{71ad3fcd-a2a2-4893-9198-a4a13f4ffbc2}">

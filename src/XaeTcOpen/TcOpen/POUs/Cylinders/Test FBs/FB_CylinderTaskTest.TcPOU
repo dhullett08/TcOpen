@@ -99,8 +99,7 @@ CASE moveHomeTestStateTask OF
 		
 	requestCylinderMoveToHomeTask :
 	
-		moveHomeTask := fbCylinder.MoveToHomeTask();
-		
+		moveHomeTask := fbCylinder.MoveToHomeTask();	
 		AssertTrue( Condition := moveHomeTask <> NO_INTERFACE, Message := 'Could not start MoveToHomeTask' );
 		moveHomeTestStateTask := seeMovingToHomeStatusTask;
 		

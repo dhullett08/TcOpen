@@ -9,9 +9,17 @@ VAR
 	toWorkPos AT %Q* : BOOL;
 	
 	// default strategies
-	moveToHomeJob : T_MoveCylinderToPosition( moveTimeoutErr := CYLINDER_MOVE_TIME_OUT );	
+	moveToHomeJob : T_MoveCylinderToPosition( 
+						actuatorToSet := toHomePos,
+						actuatorToClear := toWorkPos,
+						atPositionSensor := _atHomePos,
+						moveTimeoutErr := CYLINDER_MOVE_TIME_OUT );	
 	
-	moveToWorkJob : T_MoveCylinderToPosition( moveTimeoutErr := CYLINDER_MOVE_TIME_OUT  );					
+	moveToWorkJob : T_MoveCylinderToPosition(
+						actuatorToSet := toWorkPos,
+						actuatorToClear := toHomePos,
+						atPositionSensor := _atWorkPos,
+						moveTimeoutErr := CYLINDER_MOVE_TIME_OUT  );					
 						
 	{attribute 'hide'}
 	_simulate : BOOL := TRUE;
@@ -23,19 +31,10 @@ VAR CONSTANT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[moveToHomeJob(	
-	actuatorToSet := toHomePos,
-	actuatorToClear := toWorkPos,
-	atPositionSensor := _atHomePos);
-			
-moveToWorkJob(	
-	actuatorToSet := toWorkPos,
-	actuatorToClear := toHomePos,
-	atPositionSensor := _atWorkPos);
+      <ST><![CDATA[moveToHomeJob();			
+moveToWorkJob();
 
-RunSimulation();
-
-]]></ST>
+RunSimulation();]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{fc3930d6-8ab5-447e-a5c4-e8dc5426585f}" />
     <Folder Name="Props" Id="{ad9c6a39-32b9-4e36-b551-204df36ae57f}" />
