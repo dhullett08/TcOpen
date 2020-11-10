@@ -31,7 +31,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CycleCylinder();]]></ST>
+      <ST><![CDATA[CycleCylinder();
+fbCylinder();]]></ST>
     </Implementation>
     <Method Name="CycleCylinder" Id="{2f755462-1437-4939-92cb-0ec93d8f7e06}">
       <Declaration><![CDATA[METHOD CycleCylinder : int
@@ -86,7 +87,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[
 CASE moveHomeTestState OF
 	
-	init:
+	initToHome:
 		TEST('MoveCylinderToHome');
 		moveHomeTestState := requestCylinderMoveToHome;
 		
@@ -100,10 +101,11 @@ CASE moveHomeTestState OF
 		AssertTrue( fbCylinder.MovingToHomePosition, 'fbCylinder.MovingToHome was not true');
 		AssertTrue( fbCylinder.toHomePos, 'fbCylinder.toHomePos was not true');
 		
+		// first, catch the error
 		IF NOT ( fbCylinder.MovingToHomePosition AND fbCylinder.toHomePos ) THEN
-			moveHomeTestState := waitForCylinderAtHome;
-		ELSE
 			moveHomeTestState := completeToHome;
+		ELSE
+			moveHomeTestState := waitForCylinderAtHome;
 		END_IF
 		
 	waitForCylinderAtHome :
@@ -135,10 +137,9 @@ VAR_INST
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-CASE moveToWorkTestState OF
+        <ST><![CDATA[CASE moveToWorkTestState OF
 	
-	init:
+	initToWork : 
 		TEST('MoveCylinderToWork');
 		moveToWorkTestState := requestCylinderMoveToWork;
 		
@@ -153,9 +154,9 @@ CASE moveToWorkTestState OF
 		AssertTrue( fbCylinder.toWorkPos, 'fbCylinder.toWorkPos was not true');
 		
 		IF NOT ( fbCylinder.MovingToHomePosition AND fbCylinder.toHomePos ) THEN
-			moveToWorkTestState := waitForCylinderAtWork;
-		ELSE
 			moveToWorkTestState := completeToWork;
+		ELSE
+			moveToWorkTestState := waitForCylinderAtWork;
 		END_IF
 		
 	waitForCylinderAtWork :
@@ -178,35 +179,5 @@ END_CASE
 timeoutTimer( IN := fbCylinder.MovingToWorkPosition );]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_CylinderTest">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CylinderTest.CycleCylinder">
-      <LineId Id="39" Count="0" />
-      <LineId Id="3" Count="13" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="37" Count="1" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="17" Count="9" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="27" Count="4" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CylinderTest.MoveCylinderToHome">
-      <LineId Id="50" Count="0" />
-      <LineId Id="3" Count="35" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="49" Count="0" />
-      <LineId Id="42" Count="2" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CylinderTest.MoveCylinderToWork">
-      <LineId Id="51" Count="0" />
-      <LineId Id="3" Count="30" />
-      <LineId Id="35" Count="3" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="42" Count="2" />
-    </LineIds>
   </POU>
 </TcPlcObject>

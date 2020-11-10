@@ -4,15 +4,12 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbCylinderTest : FB_CylinderTest;
+	cylinderTaskTests : FB_CylinderTaskTest;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[tcUnit.RUN();
 ]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
-      <LineId Id="7" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

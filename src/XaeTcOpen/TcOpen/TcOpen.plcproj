@@ -30,6 +30,15 @@
     <Compile Include="POUs\Cylinders\FBs\FB_CylinderWithPressureFeedback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Cylinders\FBs\ITaskStatus.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\FBs\I_CylinderMover.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\FBs\T_MoveCylinderToPosition.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\ITFs\ITF_Cylinder.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +46,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Cylinders\Test FBs\FB_CylinderTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\Test FBs\FB_CylinderTaskTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">

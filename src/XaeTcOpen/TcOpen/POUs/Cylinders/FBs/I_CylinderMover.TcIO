@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <Itf Name="I_CylinderMover" Id="{dc15a651-b873-4ae0-ba7e-14d24bed9057}">
+    <Declaration><![CDATA[INTERFACE I_CylinderMover EXTENDS ITaskStatus
+]]></Declaration>
+    <Method Name="MoveToTarget" Id="{f95a03fa-34d3-4a81-91b8-5221977815de}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveToTarget : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

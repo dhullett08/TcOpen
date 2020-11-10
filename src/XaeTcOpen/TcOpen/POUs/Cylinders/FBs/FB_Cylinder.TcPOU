@@ -8,16 +8,34 @@ VAR
 	toHomePos AT %Q* : BOOL;
 	toWorkPos AT %Q* : BOOL;
 	
+	// default strategies
+	moveToHomeJob : T_MoveCylinderToPosition( moveTimeoutErr := CYLINDER_MOVE_TIME_OUT );	
+	
+	moveToWorkJob : T_MoveCylinderToPosition( moveTimeoutErr := CYLINDER_MOVE_TIME_OUT  );					
+						
 	{attribute 'hide'}
 	_simulate : BOOL := TRUE;
 	simTimer : TON := ( PT := CYLINDER_MOVE_TIME );
 END_VAR
 VAR CONSTANT
 	CYLINDER_MOVE_TIME : TIME := T#1S;
+	CYLINDER_MOVE_TIME_OUT : TIME := T#1S200MS;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[moveToHomeJob(	
+	actuatorToSet := toHomePos,
+	actuatorToClear := toWorkPos,
+	atPositionSensor := _atHomePos);
+			
+moveToWorkJob(	
+	actuatorToSet := toWorkPos,
+	actuatorToClear := toHomePos,
+	atPositionSensor := _atWorkPos);
+
+RunSimulation();
+
+]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{fc3930d6-8ab5-447e-a5c4-e8dc5426585f}" />
     <Folder Name="Props" Id="{ad9c6a39-32b9-4e36-b551-204df36ae57f}" />
@@ -45,24 +63,58 @@ simTimer( IN := _simulate AND_THEN toWorkPos );]]></ST>
         </Implementation>
       </Get>
     </Property>
+    <Property Name="Busy" Id="{e4850397-40a3-4b12-a953-b1adf02fa81d}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b2b957f7-526e-436b-aad4-fca74aa1f23b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := MovingToHomePosition OR MovingToWorkPosition;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="MoveToHome" Id="{27bb39b7-35d2-4604-906c-fed7be11cae8}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD MoveToHome]]></Declaration>
+      <Declaration><![CDATA[METHOD MoveToHome : BOOL]]></Declaration>
       <Implementation>
-        <ST><![CDATA[toHomePos := TRUE;
-toWorkPos := FALSE; 
-simTimer( IN := FALSE );]]></ST>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+
+MoveToHome := moveToHomeJob.MoveToTarget();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToHomeTask" Id="{c40a514b-5a00-419f-bca5-d2a4e88f39cb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD MoveToHomeTask : ITaskStatus]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT MoveToHome() THEN
+	RETURN;
+END_IF
+
+MoveToHomeTask := moveToHomeJob;]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveToWork" Id="{a201b25b-b1ba-444b-af52-d980dc092ed7}" FolderPath="Methods\">
       <Declaration><![CDATA[/// Move To Work Position
-METHOD MoveToWork
-VAR_INPUT
-END_VAR
+METHOD MoveToWork : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[toWorkPos := TRUE; 
-toHomePos := FALSE;
-simTimer( IN := FALSE );]]></ST>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+
+MoveToWork := moveToWorkJob.MoveToTarget();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToWorkTask" Id="{f6e1b8b3-66bb-4fb0-8ba1-b70793a6ce38}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD MoveToWorkTask : ITaskStatus]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT MoveToWork() THEN
+	RETURN;
+END_IF
+
+MoveToWorkTask := moveToWorkJob;]]></ST>
       </Implementation>
     </Method>
     <Property Name="MovingToHomePosition" Id="{7917124a-5273-4e6a-b79b-7237f859d1e9}" FolderPath="Props\">
@@ -88,6 +140,19 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="RunSimulation" Id="{ff28e318-927c-4952-a481-059dd1308045}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PRIVATE RunSimulation
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _simulate THEN
+	simTimer( IN := moveToWorkJob.Busy XOR moveToHomeJob.Busy );
+	_atHomePos S= moveToHomeJob.Busy AND simTimer.Q;
+	_atHomePos R= moveToWorkJob.Busy;
+	_atWorkPos S= moveToWorkJob.Busy AND simTimer.Q;
+	_atWorkPos R= moveToHomeJob.Busy;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetSimulationMode" Id="{70ff28a2-767b-465f-a252-5a2fd29a5604}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD PROTECTED SetSimulationMode : BOOL
 VAR_INPUT
@@ -95,7 +160,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (MovingToHomePosition OR MovingToWorkPosition) THEN
+        <ST><![CDATA[IF Busy THEN
 	RETURN; // Cannot set simulation while moving.
 END_IF
 

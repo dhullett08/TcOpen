@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_MoveCylinderToPosition" Id="{02039554-bb19-4a40-8b78-b2344b5ef1db}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_MoveCylinderToPosition IMPLEMENTS I_CylinderMover, ITaskStatus
+VAR_IN_OUT
+	actuatorToSet : BOOL;
+	actuatorToClear : BOOL;
+	atPositionSensor : BOOL;	
+END_VAR
+VAR
+	_move : BOOL;
+	moveTimeout : TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[actuatorToSet S= _move;
+actuatorToClear R= _move;
+_move R= atPositionSensor; 
+moveTimeout( IN := _move );]]></ST>
+    </Implementation>
+    <Method Name="Abort" Id="{5c1f8582-8e40-45d4-9c60-d868d00b7b54}">
+      <Declaration><![CDATA[METHOD Abort]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_move := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Busy" Id="{a8683767-ee4e-4b5f-bead-c7f729b17dd3}">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{ee494e21-dd22-4d40-afe9-71bc4bd7dbdb}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := _move;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Done" Id="{15b19d75-8ca1-458c-811e-9dbc7b43ed89}">
+      <Declaration><![CDATA[PROPERTY Done : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{cf1b6bf3-69e6-42e3-8a4d-aa62a891cf38}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Done := atPositionSensor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{148dc56c-3bdf-4996-80a1-e79cb0f0663b}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{f8df5910-601c-4e00-8347-72e7109b1272}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := moveTimeout.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{9927bf8c-2c75-48f0-bf3b-1663a42da55e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	moveTimeoutErr : TIME;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[moveTimeout.PT := moveTimeoutErr;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToTarget" Id="{71ad3fcd-a2a2-4893-9198-a4a13f4ffbc2}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveToTarget : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+
+MoveToTarget := _move := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

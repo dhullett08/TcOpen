@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="FB_CylinderTaskTest" Id="{b135bc5d-f37d-46db-b973-a36ec6adee6e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CylinderTaskTest EXTENDS FB_TestSuite
+VAR
+	fbCylinder : FB_Cylinder;
+	
+	masterMoveStateTask, prevStateTask : (
+		init,
+		runMoveToHomeTest,
+		runPauseState,
+		runMoveToWorkTest,
+		cycleComplete,
+		errorCycle
+	);
+	
+	moveHomeTestStateTask : (
+		initToHomeTask,
+		requestCylinderMoveToHomeTask,
+		seeMovingToHomeStatusTask,
+		waitForCylinderAtHomeTask,
+		completeToHomeTask
+	);
+	moveToWorkTestStateTask : (
+		initToWorkTask,
+		requestCylinderMoveToWorkTask,
+		seeMovingToWorkStatusTask,
+		waitForCylinderAtWorkTask,
+		completeToWorkTask
+	);
+END_VAR
+
+VAR CONSTANT
+	NO_INTERFACE : UDINT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CycleCylinder();
+fbCylinder();]]></ST>
+    </Implementation>
+    <Method Name="CycleCylinder" Id="{4468fafd-441c-4273-a109-262b88665b9f}">
+      <Declaration><![CDATA[METHOD CycleCylinder : int
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CycleCylinder');
+CASE masterMoveStateTask OF
+	
+	init:
+
+		prevStateTask := masterMoveStateTask;
+		masterMoveStateTask := runMoveToHomeTest;
+		
+	runMoveToHomeTest :
+
+		prevStateTask := masterMoveStateTask;
+		IF MoveCylinderToHomeTask() THEN
+			masterMoveStateTask := runPauseState;
+		END_IF
+		
+	runPauseState:
+		prevStateTask := masterMoveStateTask;
+		masterMoveStateTask := runMoveToWorkTest;
+		
+	runMoveToWorkTest :
+	
+		prevStateTask := masterMoveStateTask;
+		IF MoveCylinderToWorkTask() THEN
+			masterMoveStateTask := cycleComplete;
+			
+		END_IF
+		
+	cycleComplete :
+		IF prevStateTask <> masterMoveStateTask THEN
+			TEST_FINISHED_NAMED('CycleCylinder');
+			prevStateTask := masterMoveStateTask;
+		END_IF
+		
+END_CASE
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveCylinderToHomeTask" Id="{13e0b710-0205-4eec-a317-0972240e52e5}">
+      <Declaration><![CDATA[METHOD MoveCylinderToHomeTask : BOOL
+VAR_INST
+	timeoutTimer : TON := (PT := fbCylinder.CYLINDER_MOVE_TIME + fbCylinder.CYLINDER_MOVE_TIME ); // allow twice the required time
+	moveHomeTask : ITaskStatus;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE moveHomeTestStateTask OF
+	
+	initToHomeTask:
+		TEST('MoveCylinderToHome_TaskFeedback');
+		moveHomeTestStateTask := requestCylinderMoveToHomeTask;
+		
+	requestCylinderMoveToHomeTask :
+	
+		moveHomeTask := fbCylinder.MoveToHomeTask();
+		
+		AssertTrue( Condition := moveHomeTask <> NO_INTERFACE, Message := 'Could not start MoveToHomeTask' );
+		moveHomeTestStateTask := seeMovingToHomeStatusTask;
+		
+	seeMovingToHomeStatusTask :
+		AssertTrue( moveHomeTask.Busy, 'moveHomeTask.Busy was not true');
+		moveHomeTestStateTask := SEL( moveHomeTask.Busy, completeToHomeTask, waitForCylinderAtHomeTask);
+		
+	waitForCylinderAtHomeTask :
+	
+		IF timeoutTimer.Q OR moveHomeTask.Error THEN
+			moveHomeTestStateTask := completeToHomeTask;
+			AssertTrue( FALSE , 'fbCylinder timed out moving to home.' );	
+	
+		ELSIF moveHomeTask.Done THEN
+			AssertTrue( TRUE , '' );
+			moveHomeTestStateTask := completeToHomeTask;
+			
+		END_IF
+		
+	completeToHomeTask :
+		TEST_FINISHED_NAMED('MoveCylinderToHome_TaskFeedback');
+		MoveCylinderToHomeTask := TRUE;
+		
+END_CASE 
+
+timeoutTimer( IN := moveHomeTask <> 0 AND_THEN moveHomeTask.Busy );
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveCylinderToWorkTask" Id="{508b417b-d7cf-4930-bd94-3280c121216c}">
+      <Declaration><![CDATA[METHOD MoveCylinderToWorkTask : BOOL
+VAR_INST
+	timeoutTimer : TON := (PT := fbCylinder.CYLINDER_MOVE_TIME + fbCylinder.CYLINDER_MOVE_TIME ); // allow twice the required time
+	moveToWorkTask : ITaskStatus;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE moveToWorkTestStateTask OF
+	
+	initToWorkTask : 
+		TEST('MoveCylinderToWork');
+		moveToWorkTestStateTask := requestCylinderMoveToWorkTask;
+		
+	requestCylinderMoveToWorkTask :
+		moveToWorkTask := fbCylinder.MoveToWorkTask();
+		AssertTrue( Condition := moveToWorkTask <> NO_INTERFACE, Message := 'Could not start MoveToWorkTask' );	
+		moveToWorkTestStateTask := SEL( moveToWorkTask <> NO_INTERFACE, completeToWorkTask, seeMovingToWorkStatusTask);
+		
+	seeMovingToWorkStatusTask :
+		AssertTrue( moveToWorkTask.Busy, 'moveToWorkTask.Busy was not true');
+		moveToWorkTestStateTask := SEL( moveToWorkTask.Busy, completeToWorkTask, waitForCylinderAtWorkTask);
+		
+	waitForCylinderAtWorkTask :
+		IF timeoutTimer.Q OR moveToWorkTask.Error  THEN
+			moveToWorkTestStateTask := completeToWorkTask;
+			AssertTrue( FALSE , 'fbCylinder timed out moving to work.' );	
+	
+		ELSIF moveToWorkTask.Done THEN
+			AssertTrue( TRUE , '' );
+			moveToWorkTestStateTask := completeToWorkTask;
+		
+		END_IF
+		
+	completeToWorkTask :
+		TEST_FINISHED_NAMED('MoveCylinderToWork');
+		MoveCylinderToWorkTask := TRUE;
+		
+END_CASE
+
+timeoutTimer( IN := moveToWorkTask <> 0 AND_THEN moveToWorkTask.Busy );]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
