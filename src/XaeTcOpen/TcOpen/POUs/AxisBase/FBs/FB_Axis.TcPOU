@@ -8,13 +8,14 @@ VAR_INPUT
 	reset : BOOL;
 END_VAR
 VAR_OUTPUT
+	iState : I_State := fbIdleState;
 END_VAR
 VAR
 	fbIdleState : FB_Idle(THIS);
 	fbErrorState : FB_Error(THIS);
 	fbEnabledState : FB_Enabled(THIS);
 	
-	iState : I_State := fbIdleState;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>

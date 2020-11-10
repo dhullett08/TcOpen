@@ -21,5 +21,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Property Name="State" Id="{04bf86ce-0e14-4dbc-a47f-70bd5491e5af}">
+      <Declaration><![CDATA[PROPERTY State : string]]></Declaration>
+      <Get Name="Get" Id="{b7f87c00-816a-4553-82f0-8e5bc5f2d2f8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
   </Itf>
 </TcPlcObject>

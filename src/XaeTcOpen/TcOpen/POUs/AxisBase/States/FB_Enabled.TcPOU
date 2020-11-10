@@ -55,6 +55,19 @@ METHOD Reset : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Property Name="State" Id="{0750bc65-a466-4335-adf8-2efeceefab1e}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY State : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{f9cd22f6-1fa0-4012-bf0a-f8c2035c7e79}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := 'Enabled';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <LineIds Name="FB_Enabled">
       <LineId Id="9" Count="0" />
     </LineIds>
@@ -72,6 +85,9 @@ METHOD Reset : BOOL
     </LineIds>
     <LineIds Name="FB_Enabled.Reset">
       <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.State.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

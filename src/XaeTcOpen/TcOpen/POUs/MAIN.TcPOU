@@ -6,12 +6,13 @@ VAR
 	//fbCylinderTest : FB_CylinderTest;
 	//fbAxisBaseTest : FB_AxisBase_Test;
 	fbAxis : FB_Axis;
+	state : STRING;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//tcUnit.RUN();
 fbAxis();
-]]></ST>
+state := fbAxis.iState.State;]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />

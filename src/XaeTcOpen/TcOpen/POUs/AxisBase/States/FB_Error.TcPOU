@@ -50,6 +50,19 @@ METHOD Reset : BOOL
 pAxis^.SetState(pAxis^.EnabledState);]]></ST>
       </Implementation>
     </Method>
+    <Property Name="State" Id="{27e3df49-b150-44f9-8d40-c4b1907dce28}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY State : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{919e259f-0970-43b6-949c-641c10dc864b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := 'Error';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <LineIds Name="FB_Error">
       <LineId Id="9" Count="0" />
     </LineIds>
@@ -65,6 +78,9 @@ pAxis^.SetState(pAxis^.EnabledState);]]></ST>
     <LineIds Name="FB_Error.Reset">
       <LineId Id="5" Count="0" />
       <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.State.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
