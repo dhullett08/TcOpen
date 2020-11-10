@@ -22,13 +22,13 @@ END_VAR]]></Declaration>
 Enable();
 _power(Axis := _axis);
 
-//strategy pattern
+//strategy pattern code
 //maybe move to an init method
 _EnableBehaviour.RegisterAxis(axisRef := _axis);
 _EnableBehaviour();
 
 IF NOT _axis.Status.Disabled THEN
-	Enabled := true;
+	Enabled := TRUE;
 END_IF]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />

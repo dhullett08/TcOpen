@@ -24,6 +24,9 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\FBs\FB_Axis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AxisBase\FBs\FB_AxisBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -45,7 +48,19 @@
     <Compile Include="POUs\AxisBase\ITFs\I_Enable.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\AxisBase\ITFs\I_State.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AxisBase\ITFs\I_Stop.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\States\FB_Enabled.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\States\FB_Error.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxisBase\States\FB_Idle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase\Test FBs\FB_AxisBase_Test.TcPOU">
@@ -79,6 +94,7 @@
     <Folder Include="POUs\AxisBase" />
     <Folder Include="POUs\AxisBase\FBs" />
     <Folder Include="POUs\AxisBase\ITFs" />
+    <Folder Include="POUs\AxisBase\States" />
     <Folder Include="POUs\AxisBase\Test FBs" />
     <Folder Include="POUs\Cylinders" />
     <Folder Include="POUs\Cylinders\ITFs" />
