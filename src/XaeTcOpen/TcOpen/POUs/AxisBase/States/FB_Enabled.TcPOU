@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_Enabled" Id="{175046d5-4c37-4314-a67d-9b219422be85}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Enabled IMPLEMENTS I_State
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	pAxis : POINTER TO FB_Axis;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Disable" Id="{44772350-f6a9-4090-868b-7247c661a587}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Disable : BOOL
+
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_HINT, 'user has disabled.', '');
+pAxis^.SetState(pAxis^.IdleState);
+
+	
+	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{cf1e48b2-d807-4f0a-9199-df346117d3f4}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Enable : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f8a6feec-166a-4acb-b8dc-94f59db25dcd}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	pAxis : POINTER TO FB_Axis;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.pAxis := pAxis;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{d8f93f58-4cbc-4d04-b4d0-b4f84387d0e2}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Reset : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="State" Id="{0750bc65-a466-4335-adf8-2efeceefab1e}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY State : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{f9cd22f6-1fa0-4012-bf0a-f8c2035c7e79}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := 'Enabled';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_Enabled">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.Disable">
+      <LineId Id="7" Count="1" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.Enable">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.Reset">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Enabled.State.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="T_Stop" Id="{58c15be9-02d8-461a-b27e-2c5b2802f508}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_Stop IMPLEMENTS I_Stop
+VAR
+	axRef : REFERENCE TO AXIS_REF;
+	_stop : MC_Stop;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF( axRef ) THEN
+	RETURN;
+END_IF
+
+_stop( Axis := axRef );
+_stop.Execute R= 
+	_stop.Done 
+	OR axRef.Status.Disabled;]]></ST>
+    </Implementation>
+    <Property Name="Busy" Id="{a7eb2eea-d5a4-40de-b4a0-87d9bfb35875}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2ccecaef-c25a-4a37-ac73-bdeed39cf0c7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{796f8ada-5229-4bbd-bb3b-2927305af202}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{da6b8ff1-932a-4abd-8341-6b76d0d020ca}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := 
+	_stop.Error 
+	OR NOT __ISVALIDREF( axRef );]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Parameterise" Id="{b3267be7-b734-4dac-96c1-edd142025da5}">
+      <Declaration><![CDATA[METHOD PUBLIC Parameterise : BOOL
+VAR_INPUT
+	deceleration : LREAL;
+	jerk : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Busy THEN
+	RETURN;
+END_IF
+
+_stop.Deceleration := deceleration;
+_stop.Jerk := jerk;
+Parameterise := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterAxis" Id="{61d05de7-464e-4679-aef4-91ac961d27b8}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterAxis : BOOL
+VAR_IN_OUT
+	axisRef : AXIS_REF;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Busy THEN // Error
+	RETURN;
+END_IF
+
+axRef REF= axisRef;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{6c737fe9-781b-4ebb-9972-ba15d8a8c3cc}">
+      <Declaration><![CDATA[METHOD Stop]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stop.Execute := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="T_Stop">
+      <LineId Id="3" Count="6" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Busy.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Error.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Parameterise">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.RegisterAxis">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="T_Stop.Stop">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

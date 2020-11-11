@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <Itf Name="ITF_AxisBase" Id="{7c0b5f35-6961-401c-a129-c286a521a6d4}">
+    <Declaration><![CDATA[INTERFACE ITF_AxisBase
+]]></Declaration>
+    <Method Name="Disable" Id="{841ea02a-a785-4841-af47-9ea4c09af8f2}">
+      <Declaration><![CDATA[METHOD Disable]]></Declaration>
+    </Method>
+    <Method Name="Enable" Id="{4f565508-8f93-4c28-901f-5eaf0c6c6987}">
+      <Declaration><![CDATA[METHOD Enable : BOOL]]></Declaration>
+    </Method>
+    <Property Name="Enabled" Id="{6038fc20-3e04-4c2e-9804-b028908d58a3}">
+      <Declaration><![CDATA[PROPERTY Enabled : BOOL]]></Declaration>
+      <Get Name="Get" Id="{09ee6104-6e42-48f9-86a9-c740d6ac4e0c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="EnableNegativeDirection" Id="{79b8ffa5-86f4-46fa-8e6d-3ee24842e46f}">
+      <Declaration><![CDATA[PROPERTY EnableNegativeDirection : bool]]></Declaration>
+      <Get Name="Get" Id="{a6662a0e-841e-4315-9bf0-606c3c29810f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a0270660-c8a3-45a3-9d33-1cdbb5fae15c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Override" Id="{279d333c-cb93-4282-b275-6bc17aa72e2b}">
+      <Declaration><![CDATA[PROPERTY Override : lreal]]></Declaration>
+      <Get Name="Get" Id="{07367dfe-a7a1-485e-9ced-ce128cae3c11}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{63842dd0-fbce-45b5-89a8-d3c548a80219}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Reset" Id="{171c9372-db41-483a-a539-db6009a86252}">
+      <Declaration><![CDATA[METHOD Reset]]></Declaration>
+    </Method>
+    <Property Name="SafetyOk" Id="{8f92f976-7aad-485b-bda9-4d7a6edf5cfd}">
+      <Declaration><![CDATA[PROPERTY SafetyOk : BOOL]]></Declaration>
+      <Get Name="Get" Id="{53e675bf-b1aa-48c3-9722-87d0ac1a9d60}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{94bca364-204b-4f44-940d-120a68650f06}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{717b381b-fd43-4de9-8e91-379e6ed665bb}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO ST_AxisStatus]]></Declaration>
+      <Get Name="Get" Id="{859f5a5a-3bbd-4c4b-8847-ba54a2e88d40}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="UMLStereoTypeContainerObject">
+            <v n="IsType" t="UMLType">BaseArea</v>
+            <v n="Stereotype">""</v>
+            <d n="Stereotypes" t="Hashtable" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="String">System.String</Type>
+          <Type n="UMLStereoTypeContainerObject">{30250973-b110-4e31-b562-c102e042dca4}</Type>
+          <Type n="UMLType">{0197b136-405a-42ee-bb27-fd08b621d0cf}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+  </Itf>
+</TcPlcObject>

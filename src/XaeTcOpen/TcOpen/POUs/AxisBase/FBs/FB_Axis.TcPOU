@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_Axis" Id="{c140482e-603b-4d92-ba54-92c858058e3b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Axis
+VAR_INPUT
+	enable : BOOL;
+	disable : BOOL;
+	reset : BOOL;
+END_VAR
+VAR_OUTPUT
+	iState : I_State := fbIdleState;
+END_VAR
+VAR
+	fbIdleState : FB_Idle(THIS);
+	fbErrorState : FB_Error(THIS);
+	fbEnabledState : FB_Enabled(THIS);
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF enable THEN
+	THIS^.iState.Enable();
+END_IF
+IF disable THEN
+	THIS^.iState.Disable();
+END_IF
+IF reset THEN
+	THIS^.iState.Reset();
+END_IF]]></ST>
+    </Implementation>
+    <Property Name="EnabledState" Id="{5ffeb8a1-fdb6-49ee-8a62-4b69ce850e8e}">
+      <Declaration><![CDATA[PROPERTY INTERNAL EnabledState : i_state]]></Declaration>
+      <Get Name="Get" Id="{07a91ee3-fb83-4c6b-86ef-5029fddacbc7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnabledState := THIS^.fbEnabledState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ErrorState" Id="{b6d64575-3120-46eb-a886-6bc5f4a30c7c}">
+      <Declaration><![CDATA[PROPERTY INTERNAL ErrorState : i_state]]></Declaration>
+      <Get Name="Get" Id="{920cef53-3a7f-4dfb-8999-78c716311f1a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorState := THIS^.fbErrorState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IdleState" Id="{5f667966-a52b-4199-ae09-c32b538fafa3}">
+      <Declaration><![CDATA[PROPERTY INTERNAL IdleState : i_state]]></Declaration>
+      <Get Name="Get" Id="{b9a52243-2ed4-470d-9f45-fec0b88b4391}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IdleState := THIS^.fbIdleState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetState" Id="{39e18b0d-168d-472d-8855-270e35112728}">
+      <Declaration><![CDATA[METHOD INTERNAL SetState : BOOL
+VAR_INPUT
+	newState : I_State;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iState := newState;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Axis">
+      <LineId Id="9" Count="0" />
+      <LineId Id="18" Count="7" />
+    </LineIds>
+    <LineIds Name="FB_Axis.EnabledState.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.ErrorState.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.IdleState.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.SetState">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

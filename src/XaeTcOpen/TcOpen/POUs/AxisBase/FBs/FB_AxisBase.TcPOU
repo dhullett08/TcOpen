@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_AxisBase" Id="{dbf7b8f1-ae81-4287-be87-eea1c81c44ed}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisBase IMPLEMENTS ITF_AxisBase
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	_axis : AXIS_REF;
+	_power : MC_Power;
+	_enable : BOOL;
+	
+	_asyncComd : T_AsyncCommand;
+	_cmdStatus : I_AsyncStatus := _asyncComd;
+	
+	_EnableBehaviour : T_Enable;
+	_enabler : I_Enable := _EnableBehaviour;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//command pattern code
+Enable();
+_power(Axis := _axis);
+
+//strategy pattern code
+//maybe move to an init method
+_EnableBehaviour.RegisterAxis(axisRef := _axis);
+_EnableBehaviour();
+
+IF NOT _axis.Status.Disabled THEN
+	Enabled := TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <Folder Name="Functions" Id="{fa1131cc-8ce1-4d4a-ae8f-5bfb26f51f70}" />
+    <Folder Name="Properties" Id="{3f341a9f-4117-4254-8d8b-3dba578ac155}" />
+    <Property Name="BufferMode" Id="{818b37a9-0be6-4ba1-8b0d-bc1e90e4d84f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY BufferMode : MC_BufferMode]]></Declaration>
+      <Get Name="Get" Id="{fdca43b9-8aea-4fd6-b18b-f40dc5435c6b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[BufferMode := _power.BufferMode;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b51575cd-3442-4d3d-ae40-54dd72e64f41}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_power.BufferMode := BufferMode;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Enable" Id="{db2ed9b3-ee26-4fe1-966d-2deb43f58bd6}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PRIVATE Enable : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//command pattern 
+IF _enable THEN
+	_power.Enable := TRUE;
+	_asyncComd.SetBusy();
+END_IF
+
+IF _power.Status THEN
+	_asyncComd.SetDone();
+END_IF
+
+IF _power.Error THEN
+	_asyncComd.SetError();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Enabled" Id="{5632354a-4462-4802-be31-68adbf70f687}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Enabled : bool]]></Declaration>
+      <Get Name="Get" Id="{438cd9c9-cfc0-463c-a089-72c0119c0d70}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Enabled := NOT _axis.Status.Disabled;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="EnableNegativeDirection" Id="{fec7bd58-0f65-4325-8cb9-d508f03f0c9f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY EnableNegativeDirection : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{cf9e60e9-91e1-4213-a3db-cb0cd7337eb8}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnableNegativeDirection := _power.Enable_Negative;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{410ae65e-bdaf-49c2-b8dd-de0099ba81ce}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_power.Enable_Negative := EnableNegativeDirection;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="EnablePositiveDirection" Id="{7e3e33a9-6238-4cfd-a80e-033f12162192}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC EnablePositiveDirection : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0e255035-7e1d-43ee-a783-e0105cbf386e}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnablePositiveDirection := _power.Enable_Positive;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{269d42de-a729-454c-aca0-f9831954ec57}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_power.Enable_Positive := EnablePositiveDirection;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="EnableRequest" Id="{216b5385-5e56-4405-a3df-a11e0ff5af27}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD PUBLIC EnableRequest : I_AsyncStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//command pattern
+IF Enabled THEN
+	RETURN;
+END_IF
+_enable := TRUE;
+EnableRequest := _cmdStatus;
+
+
+//stategy pattern 
+_enabler.Enable();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Error" Id="{685e9e28-60b0-4451-abc9-442af7e7e384}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : bool]]></Declaration>
+      <Get Name="Get" Id="{d6f5c0c8-b51b-4612-b813-c54f1cb0bc91}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _axis.Status.Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{12aa2494-4444-478a-8c05-03e7dd9b133e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetStopStrategy( strategy := _defaultStop );]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Override" Id="{ed9bd1fd-b6a2-4b9c-995d-0becc00f218f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Override : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{0accf564-84f3-4f9d-b305-14de34ae3804}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Override := _power.Override;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e8ddcebe-6280-4196-af0c-edff922a562c}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_power.Override := LIMIT(0, Override, 100);]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="SafetyOk" Id="{6fc7ba7b-94e5-47d5-972f-24043b6bb627}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC SafetyOk : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2541ad80-f046-473d-8605-209fa4d609d1}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SafetyOk := _safetyOk;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d352df89-9f25-43c5-bd3f-7994b5ad7551}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_safetyOk := SafetyOk;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{01550466-7fbb-439d-b91e-bfe1a59105ae}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO Tc2_MC2.ST_AxisStatus
+]]></Declaration>
+      <Get Name="Get" Id="{4afe7753-9aa7-40fe-9d93-8bb6e3098f57}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_axis();
+Status REF= _axis.Status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="UMLStereoTypeContainerObject">
+            <v n="IsType" t="UMLType">BaseArea</v>
+            <v n="Stereotype">""</v>
+            <d n="Stereotypes" t="Hashtable" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="String">System.String</Type>
+          <Type n="UMLStereoTypeContainerObject">{30250973-b110-4e31-b562-c102e042dca4}</Type>
+          <Type n="UMLType">{0197b136-405a-42ee-bb27-fd08b621d0cf}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+    <LineIds Name="FB_AxisBase">
+      <LineId Id="69" Count="1" />
+      <LineId Id="3" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="84" Count="2" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.BufferMode.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.BufferMode.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enable">
+      <LineId Id="2" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Enabled.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableNegativeDirection.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnablePositiveDirection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnablePositiveDirection.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.EnableRequest">
+      <LineId Id="14" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="6" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.FB_init">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Override.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.SafetyOk.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.SafetyOk.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AxisBase.Status.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

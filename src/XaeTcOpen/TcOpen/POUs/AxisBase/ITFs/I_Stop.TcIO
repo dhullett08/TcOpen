@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_Stop" Id="{abc908d2-d9b9-4dde-941b-d5a60f34d777}">
+    <Declaration><![CDATA[INTERFACE I_Stop
+]]></Declaration>
+    <Property Name="Busy" Id="{3c3a6ca2-2e86-47cf-b238-66e572600910}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fb6d93f4-e213-4df6-ae04-0752ba4e2ad2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{ec1ba631-9a0d-4ec1-b754-9d3b39e965a9}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ad070c08-7c7e-4eac-a0f4-7acc391f6427}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Parameterise" Id="{94ff68cb-71da-4757-aa18-2a29d121dd40}">
+      <Declaration><![CDATA[METHOD PUBLIC Parameterise : BOOL
+VAR_INPUT
+	deceleration : LREAL;
+	jerk : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="RegisterAxis" Id="{44598adf-bba4-4a3a-bde9-522aefb1d52f}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterAxis : BOOL
+VAR_IN_OUT
+	axisRef : AXIS_REF;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{a061b992-b6ea-479c-a64f-2105bfe9fff4}">
+      <Declaration><![CDATA[METHOD Stop]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

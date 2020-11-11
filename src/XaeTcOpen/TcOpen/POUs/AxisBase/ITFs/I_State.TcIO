@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_State" Id="{531fa272-2cd5-42d8-9cf4-4c3ca4bd3b79}">
+    <Declaration><![CDATA[INTERFACE I_State
+]]></Declaration>
+    <Method Name="Disable" Id="{1cfec2c5-39b9-4c11-9f5f-160761311480}">
+      <Declaration><![CDATA[METHOD Disable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Enable" Id="{344e01c2-3887-49b7-8e4c-b1d7a2ec73ab}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{38174c13-87a3-4d7f-8d74-3b6394874f7b}">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="State" Id="{04bf86ce-0e14-4dbc-a47f-70bd5491e5af}">
+      <Declaration><![CDATA[PROPERTY State : string]]></Declaration>
+      <Get Name="Get" Id="{b7f87c00-816a-4553-82f0-8e5bc5f2d2f8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

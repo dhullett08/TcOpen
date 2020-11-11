@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_AsyncStatus" Id="{b3a2d6a6-21d0-4b08-be03-157cda3ff6a5}">
+    <Declaration><![CDATA[INTERFACE I_AsyncStatus
+]]></Declaration>
+    <Property Name="Busy" Id="{1c66b9e6-2211-46e3-ba02-f7b107e3230e}">
+      <Declaration><![CDATA[PROPERTY Busy : bool]]></Declaration>
+      <Get Name="Get" Id="{01ffbed5-9871-4b26-a05d-34e8042ca539}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Done" Id="{3558482a-dd8d-4732-8d58-fc73394ccb24}">
+      <Declaration><![CDATA[PROPERTY Done : bool]]></Declaration>
+      <Get Name="Get" Id="{8bd8b890-d718-4598-b904-0b2c09e43069}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{575b3820-40ec-432c-ac3e-c18c7478061e}">
+      <Declaration><![CDATA[PROPERTY Error : bool]]></Declaration>
+      <Get Name="Get" Id="{0d9cb2b3-d0a9-46be-8d7d-a6a0c3cdff4e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

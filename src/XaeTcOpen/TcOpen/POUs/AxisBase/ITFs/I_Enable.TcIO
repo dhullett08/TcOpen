@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_Enable" Id="{10058e29-b414-4bb7-9085-5ab6d0d16f75}">
+    <Declaration><![CDATA[INTERFACE I_Enable
+]]></Declaration>
+    <Property Name="Busy" Id="{84941abf-4c9b-4f71-b92f-e4daa9354268}">
+      <Declaration><![CDATA[PROPERTY Busy : bool]]></Declaration>
+      <Get Name="Get" Id="{8ff847dc-5a97-4397-8de2-b75c26017a19}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Disable" Id="{348062ea-364b-4e6a-8aa9-3dc0d148c69e}">
+      <Declaration><![CDATA[METHOD Disable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Enable" Id="{3a63a96a-c190-46b7-b7b2-ec404589485d}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Error" Id="{a1a48a46-7b62-4b8d-b3e3-561de6190465}">
+      <Declaration><![CDATA[PROPERTY Error : bool]]></Declaration>
+      <Get Name="Get" Id="{e3a63eb5-3c84-42c7-93a8-9556fa9f6ced}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Parametrise" Id="{54194fcf-c71e-458b-be48-605a1fbea816}">
+      <Declaration><![CDATA[METHOD Parametrise : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="RegisterAxis" Id="{f6d50491-a91f-448d-8ef3-593d972be9d5}">
+      <Declaration><![CDATA[METHOD RegisterAxis : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

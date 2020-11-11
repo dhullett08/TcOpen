@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="FB_Error" Id="{580c34cd-9626-4b57-a2d4-b3ddeed16f6d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Error IMPLEMENTS I_State
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	pAxis : POINTER TO FB_Axis;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Disable" Id="{195830cd-6094-4844-b15d-b6cf2a074762}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Disable : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{12f833a1-36c3-40f8-b829-22cc6278629e}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Enable : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1f197484-3114-495c-9d8e-53e89fac3859}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	pAxis : POINTER TO FB_Axis;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.pAxis := pAxis;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{3d993056-c150-474e-adcf-416ae6c805f4}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD Reset : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_HINT, 'user has reset.', '');
+pAxis^.SetState(pAxis^.EnabledState);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="State" Id="{27e3df49-b150-44f9-8d40-c4b1907dce28}">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY State : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{919e259f-0970-43b6-949c-641c10dc864b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := 'Error';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_Error">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.Disable">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.Enable">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.Reset">
+      <LineId Id="5" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Error.State.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
