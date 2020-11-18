@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_AnalogueInputTest" Id="{4b624b13-8320-4357-a153-692da183e6e0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputTest
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbAnalogue : FB_AnalogueInputBase(SignalType := SignalType._0_20mA, Resolution := Resolution._12Bit);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CheckConvertedValue" Id="{1d8e5d28-cc2c-40d8-8717-72a573ebe234}">
+      <Declaration><![CDATA[METHOD CheckConvertedValue : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckError" Id="{a96aba15-f2f0-4b1b-bddc-ae4a79e277df}">
+      <Declaration><![CDATA[METHOD CheckError : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRawValue" Id="{d4ed59de-963f-483a-94ed-421617e5b806}">
+      <Declaration><![CDATA[METHOD CheckRawValue : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_AnalogueInputTest">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckConvertedValue">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckError">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckRawValue">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

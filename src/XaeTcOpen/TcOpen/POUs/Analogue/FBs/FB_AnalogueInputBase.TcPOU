@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="FB_AnalogueInputBase" Id="{ffe48a9a-1d37-40f8-b7a7-45cd91910e96}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputBase
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputBase IMPLEMENTS IAnalogueInput
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -50,17 +50,8 @@ CASE Resolution OF
 END_CASE]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetRawValue" Id="{840f64bd-c848-40ab-944f-b870f219b250}">
-      <Declaration><![CDATA[METHOD GetRawValue : int
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetRawValue := _processData.Value;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetValue" Id="{1d77c5be-2386-4642-9531-4f10dc497ecd}">
-      <Declaration><![CDATA[METHOD GetValue : REAL
+    <Method Name="GetConvertedValue" Id="{1d77c5be-2386-4642-9531-4f10dc497ecd}">
+      <Declaration><![CDATA[METHOD GetConvertedValue : REAL
 VAR
 END_VAR
 
@@ -70,7 +61,16 @@ END_VAR
 	RETURN;
 END_IF
 
-GetValue := _processData.Value * (_signalType/_resolution);]]></ST>
+GetConvertedValue := _processData.Value * (_signalType/_resolution);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRawValue" Id="{840f64bd-c848-40ab-944f-b870f219b250}">
+      <Declaration><![CDATA[METHOD GetRawValue : int
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetRawValue := _processData.Value;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_AnalogueInputBase">
@@ -89,13 +89,12 @@ GetValue := _processData.Value * (_signalType/_resolution);]]></ST>
       <LineId Id="20" Count="1" />
       <LineId Id="19" Count="0" />
     </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.GetConvertedValue">
+      <LineId Id="15" Count="3" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
     <LineIds Name="FB_AnalogueInputBase.GetRawValue">
       <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_AnalogueInputBase.GetValue">
-      <LineId Id="5" Count="2" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

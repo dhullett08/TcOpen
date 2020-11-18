@@ -19,15 +19,6 @@
 				<Elements>5</Elements>
 			</ArrayInfo>
 		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000010}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..1] OF BYTE</Name>
-			<BitSize>16</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>2</Elements>
-			</ArrayInfo>
-		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
@@ -50,10 +41,70 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.bob</Name>
+							<Name>MAIN.fbCylinderTest.fbCylinder._atHomePos</Name>
+							<Comment><![CDATA[ Link With Home Position Sensor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCylinderTest.fbCylinder._atWorkPos</Name>
+							<Comment><![CDATA[ Link With Work Position Sensor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Underrange</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Overrange</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Limit1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Limit2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Error</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.SyncError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.TxPDOState</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.TxPDOToggle</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbAnalogue._processData.Value</Name>
 							<Type>INT</Type>
 						</Var>
 					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>MAIN.fbCylinderTest.fbCylinder.toHomePos</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCylinderTest.fbCylinder.toWorkPos</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<UnrestoredVarLinks ImportTime="2020-11-18T21:48:19">
+						<OwnerA Name="InputDst" Prefix="TIPC^TcOpen^TcOpen Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL3182)">
+								<Link VarA="MAIN.fbAnalogue.processData.Value" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="Ch. 2^Ch. 2 Al Inputs^Value" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id NeedCalleeCall="true">0</Id>
@@ -106,7 +157,7 @@
 							<SyncMan>001080002600010001000000400080008000001026010000</SyncMan>
 							<SyncMan>801080002200010002000000400080008000801022010000</SyncMan>
 							<SyncMan>001100000400000003000000000000000000001104000000</SyncMan>
-							<SyncMan>801124002000010004000000000000000800801120010000</SyncMan>
+							<SyncMan>801108002000010004000000000000000800801120010000</SyncMan>
 							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
 							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 							<BootStrapData>0010f400f410f400</BootStrapData>
@@ -157,20 +208,20 @@ Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Ch. 2 Al Inputs" Index="#x1a02" Flags="#x0280" SyncMan="3">
-								<Entry Name="Status__Underrange" BitLen="1" Index="#x6000" Sub="#x01" Flags="#x00008020">
+								<Entry Name="Status__Underrange" BitLen="1" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment><![CDATA[Underrange event active]]></Comment>
 								</Entry>
-								<Entry Name="Status__Overrange" BitLen="1" Index="#x6000" Sub="#x02" Flags="#x00008020">
+								<Entry Name="Status__Overrange" BitLen="1" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
 									<Comment><![CDATA[Overrange event active]]></Comment>
 								</Entry>
-								<Entry Name="Status__Limit 1" BitLen="2" Index="#x6000" Sub="#x03" Flags="#x00008020">
+								<Entry Name="Status__Limit 1" BitLen="2" Index="#x6000" Sub="#x03">
 									<Type>BIT2</Type>
 									<Comment><![CDATA[Bit0: Value greater than Limit1
 Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
-								<Entry Name="Status__Limit 2" BitLen="2" Index="#x6000" Sub="#x05" Flags="#x00008020">
+								<Entry Name="Status__Limit 2" BitLen="2" Index="#x6000" Sub="#x05">
 									<Type>BIT2</Type>
 									<Comment><![CDATA[Bit0: Value greater than Limit2
 Bit1: Value smaller than Limit2]]></Comment>
@@ -185,10 +236,10 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<Entry Name="Status__" BitLen="5">
 									<Type GUID="{18071995-0000-0000-0000-002000000005}">ARRAY [0..4] OF BIT</Type>
 								</Entry>
-								<Entry Name="Status__Sync Error" BitLen="1" Index="#x6000" Sub="#x0e" Flags="#x00008020">
+								<Entry Name="Status__Sync Error" BitLen="1" Index="#x6000" Sub="#x0e">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__TxPDO State" BitLen="1" Index="#x6000" Sub="#x0f" Flags="#x00008020">
+								<Entry Name="Status__TxPDO State" BitLen="1" Index="#x6000" Sub="#x0f">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Status__TxPDO Toggle" BitLen="1" Index="#x6000" Sub="#x10">
@@ -196,44 +247,6 @@ Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Value" BitLen="16" Index="#x6000" Sub="#x11">
 									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Ch. 2 HART Inputs" Index="#x1a12" Flags="#x0280" SyncMan="3">
-								<Entry Name="Field Device Status" Index="#x6080" Sub="#x01">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Cyclic Frame Cnt" Index="#x6080" Sub="#x02">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry>
-									<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
-								</Entry>
-								<Entry Name="Primary Variable Units Code" Index="#x6080" Sub="#x05">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Secondary Variable Units Code" Index="#x6080" Sub="#x06">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Tertiary Variable Units Code" Index="#x6080" Sub="#x07">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Quaternary Variable Units Code" Index="#x6080" Sub="#x08">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Primary Variable Loop Current" Index="#x6080" Sub="#x09">
-									<Type>REAL</Type>
-								</Entry>
-								<Entry Name="Primary Variable" Index="#x6080" Sub="#x0a">
-									<Type>REAL</Type>
-								</Entry>
-								<Entry Name="Secondary Variable" Index="#x6080" Sub="#x0b">
-									<Type>REAL</Type>
-								</Entry>
-								<Entry Name="Tertiary Variable" Index="#x6080" Sub="#x0c">
-									<Type>REAL</Type>
-								</Entry>
-								<Entry Name="Quaternary Variable" Index="#x6080" Sub="#x0d">
-									<Type>REAL</Type>
 								</Entry>
 							</Pdo>
 							<CoeProfile ProfileNo="19665801"/>
@@ -259,7 +272,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>16843052</ModuleIdent>
 								<Module Id="#x03090001" Type="AI Standard" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>407</ImageId>
+									<ImageId>406</ImageId>
 									<ModuleData>020000002c010100000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6656</PdoIndex>
 								</Module>
@@ -270,7 +283,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>16843052</ModuleIdent>
 								<Module Id="#x03090002" Type="AI Standard" Class="">
 									<Name>Ch. 2</Name>
-									<ImageId>407</ImageId>
+									<ImageId>406</ImageId>
 									<ModuleData>020000002c010100000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6658</PdoIndex>
 								</Module>
@@ -336,12 +349,6 @@ Bit1: Value smaller than Limit2]]></Comment>
 							<Slot Name="HART Cmd3">
 								<SlotData>0100000001000600020000001000000000000000000000000000000000000000</SlotData>
 								<ModuleIdent>71816</ModuleIdent>
-								<Module Id="#x03090010" Type="HART Cmd3" Class="">
-									<Name>Ch. 2</Name>
-									<ImageId>407</ImageId>
-									<ModuleData>0200000088180100000004000000000000000000000000000000000000000000</ModuleData>
-									<PdoIndex>6674</PdoIndex>
-								</Module>
 							</Slot>
 							<Slot Name="Empty Slot">
 								<SlotData>0000010001000600000000000000000000000000000000000000000000000000</SlotData>
@@ -414,80 +421,21 @@ Bit1: Value smaller than Limit2]]></Comment>
 							</SlotGroupData>
 						</EtherCAT>
 					</Box>
-					<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 4 (EL3161)</Name>
-						<ImageId>1001</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0c593052" RevisionNo="#x00130000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3161 1Ch. Ana. Input 0-10V" Desc="EL3161" PortABoxInfo="#x01000002">
-							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
-							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
-							<SyncMan>001100000400000003000000000000000000001104000000</SyncMan>
-							<SyncMan>801104002000010004000000000000000400801120010000</SyncMan>
-							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
-							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-							<BootStrapData>0010f400f410f400</BootStrapData>
-							<DcMode>53796e6368726f6e00000000000000004672656552756e2f534d2d53796e6368726f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
-							<DcMode>4443000000000000000000000000000044432d53796e6368726f6e0000000000000000000000000000000000000000000000000000000000a8610000000000070100000000000000000000000000000000000000000000000000000000000000</DcMode>
-							<DcMode>4443494e00000000000000000000000044432d53796e6368726f6e2028696e7075742062617365642900000000000000000000006079feffa8610000000000070100000000000000000001000000000000000000000000000000000000000000</DcMode>
-							<Pdo Name="AI Standard" Index="#x1a00" Flags="#x0010" SyncMan="3">
-								<ExcludePdo>#x1a01</ExcludePdo>
-								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
-								</Entry>
-								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02" Flags="#x00008020">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03" Flags="#x00008020">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05" Flags="#x00008020">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]></Comment>
-								</Entry>
-								<Entry Name="Status__Error" Index="#x6000" Sub="#x07" Flags="#x00008020">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000005}">ARRAY [0..4] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__Sync error" Index="#x6000" Sub="#x0e" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="Status__TxPDO State" Index="#x6000" Sub="#x0f" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="Status__TxPDO Toggle" Index="#x6000" Sub="#x10" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="AI Compact" Index="#x1a01" Flags="#x0010">
-								<ExcludePdo>#x1a00</ExcludePdo>
-								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<CoeProfile ProfileNo="19665801"/>
-						</EtherCAT>
-					</Box>
 					<Box Id="3" BoxType="9099">
 						<Name>Term 3 (EL9011)</Name>
 						<ImageId>1002</ImageId>
-						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000004"/>
+						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000002"/>
 					</Box>
 				</Box>
 				<EtherCAT/>
 			</Device>
 		</Io>
 	</Project>
+	<Mappings>
+		<OwnerA Name="TIPC^TcOpen^TcOpen Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL3182)">
+				<Link VarA="PlcTask Inputs^MAIN.fbAnalogue._processData.Value" VarB="Ch. 2^Ch. 2 Al Inputs^Value"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>
