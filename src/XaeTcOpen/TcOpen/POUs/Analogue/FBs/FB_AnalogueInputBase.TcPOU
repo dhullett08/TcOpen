@@ -7,7 +7,7 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	_processData : AnalogueStatus;
+	_processData : REFERENCE TO AnalogueStatus;
 	_signalType : DINT;
 	_resolution : DINT;
 END_VAR
@@ -33,6 +33,7 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	SignalType : SignalType;
 	Resolution : Resolution;
+	ProcessData : reference to AnalogueStatus;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -47,7 +48,9 @@ CASE Resolution OF
 	1: _resolution := 2048;
 	2: _resolution := 32768;
 	3: _resolution := 8388608;
-END_CASE]]></ST>
+END_CASE
+
+_processData := ProcessData;]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetConvertedValue" Id="{1d77c5be-2386-4642-9531-4f10dc497ecd}">
@@ -88,6 +91,8 @@ END_VAR
       <LineId Id="18" Count="0" />
       <LineId Id="20" Count="1" />
       <LineId Id="19" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="23" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.GetConvertedValue">
       <LineId Id="15" Count="3" />

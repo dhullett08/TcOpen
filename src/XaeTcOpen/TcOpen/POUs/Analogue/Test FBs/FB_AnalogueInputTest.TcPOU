@@ -7,7 +7,8 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	fbAnalogue : FB_AnalogueInputBase(SignalType := SignalType._0_20mA, Resolution := Resolution._12Bit);
+	analogueIn : AnalogueStatus;
+	fbAnalogue : FB_AnalogueInputBase(SignalType := SignalType._0_20mA, Resolution := Resolution._12Bit, ProceesData := analogueIn);
 END_VAR
 ]]></Declaration>
     <Implementation>

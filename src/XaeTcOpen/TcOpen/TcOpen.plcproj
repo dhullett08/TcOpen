@@ -39,6 +39,9 @@
     <Compile Include="POUs\Analogue\STs\SignalType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Analogue\Test FBs\FB_AnalogueInputTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\FBs\FB_Cylinder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
