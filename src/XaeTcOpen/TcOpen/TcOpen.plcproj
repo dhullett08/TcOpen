@@ -24,6 +24,12 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Analogue\FBs\FB_AnalogueInputBase.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Analogue\STs\AnalogueStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\FBs\FB_Cylinder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -49,10 +55,14 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Analogue\FBs" />
+    <Folder Include="POUs\Analogue\ITFs" />
+    <Folder Include="POUs\Analogue\STs" />
     <Folder Include="POUs\Cylinders" />
     <Folder Include="POUs\Cylinders\ITFs" />
     <Folder Include="POUs\Cylinders\FBs" />
     <Folder Include="POUs\Cylinders\Test FBs" />
+    <Folder Include="POUs\Analogue" />
     <Folder Include="Version" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

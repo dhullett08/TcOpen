@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <DUT Name="AnalogueStatus" Id="{2eafe0d8-3d36-4513-aeb5-ae90e4f7d44e}">
+    <Declaration><![CDATA[TYPE AnalogueStatus :
+STRUCT
+	Underrange AT%I* : BOOL;
+	Overrange AT%I* : BOOL;
+	Limit1 AT%I* : BOOL;
+	Limit2 AT%I* : BOOL;
+	SyncError AT%I* : BOOL;
+	TxPDOState AT%I* : BOOL;
+	TxPDOToggle AT%I* : BOOL;
+	Value AT%i* : INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
