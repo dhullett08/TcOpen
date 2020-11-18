@@ -7,6 +7,7 @@ STRUCT
 	Overrange AT%I* : BOOL;
 	Limit1 AT%I* : BOOL;
 	Limit2 AT%I* : BOOL;
+	Error AT%i* : BOOL;
 	SyncError AT%I* : BOOL;
 	TxPDOState AT%I* : BOOL;
 	TxPDOToggle AT%I* : BOOL;

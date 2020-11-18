@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbCylinderTest : FB_CylinderTest;
-	fbAnalogue : FB_AnalogueInputBase;
+	fbAnalogue : FB_AnalogueInputBase(SignalType := SignalType._0_20mA, Resolution := Resolution._12Bit);
 END_VAR
 ]]></Declaration>
     <Implementation>

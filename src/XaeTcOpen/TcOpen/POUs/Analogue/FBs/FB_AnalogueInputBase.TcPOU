@@ -7,14 +7,95 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	processData : AnalogueStatus;
+	_processData : AnalogueStatus;
+	_signalType : DINT;
+	_resolution : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Property Name="Error" Id="{79a5cfef-99b5-481c-81b7-13cb614e2233}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Error : bool]]></Declaration>
+      <Get Name="Get" Id="{51c26d9b-c891-4b59-82f1-015c97e0525e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _processData.Underrange OR _processData.Overrange OR _processData.SyncError OR _processData.Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{e0500f8c-eb79-4e42-bb25-72de298c7e14}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	SignalType : SignalType;
+	Resolution : Resolution;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE SignalType OF
+	1: _signalType := 20;
+	2: _signalType := 20;
+	3: _signalType := 30;
+	4: _signalType := 10;
+END_CASE
+
+CASE Resolution OF
+	1: _resolution := 2048;
+	2: _resolution := 32768;
+	3: _resolution := 8388608;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRawValue" Id="{840f64bd-c848-40ab-944f-b870f219b250}">
+      <Declaration><![CDATA[METHOD GetRawValue : int
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetRawValue := _processData.Value;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetValue" Id="{1d77c5be-2386-4642-9531-4f10dc497ecd}">
+      <Declaration><![CDATA[METHOD GetValue : REAL
+VAR
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (_resolution = 0) OR (_signalType = 0) THEN
+	RETURN;
+END_IF
+
+GetValue := _processData.Value * (_signalType/_resolution);]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="FB_AnalogueInputBase">
       <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.FB_init">
+      <LineId Id="7" Count="0" />
+      <LineId Id="12" Count="3" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.GetRawValue">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.GetValue">
+      <LineId Id="5" Count="2" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
