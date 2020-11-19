@@ -25,11 +25,26 @@ END_VAR
     </Method>
     <Method Name="CheckError" Id="{a96aba15-f2f0-4b1b-bddc-ae4a79e277df}">
       <Declaration><![CDATA[METHOD CheckError : BOOL
-VAR_INPUT
+VAR
+	
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[TEST('Check Error reporting');
+
+// arrange
+analogueIn.Error := true;
+
+
+
+// act
+result := fbAnalogue.Error;
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Axis did not disable');
+TestTwoFinished := TRUE;	
+
+TEST_FINISHED_NAMED('Check Axis Disable');]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckRawValue" Id="{d4ed59de-963f-483a-94ed-421617e5b806}">
@@ -48,7 +63,10 @@ END_VAR
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputTest.CheckError">
-      <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="22" Count="9" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputTest.CheckRawValue">
       <LineId Id="5" Count="0" />
