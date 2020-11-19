@@ -10,11 +10,30 @@ VAR
 	_processData : REFERENCE TO AnalogueStatus;
 	_signalType : DINT;
 	_resolution : DINT;
+	_DataError : BOOL;
+	
+	dataPreviousToggle : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF dataPreviousToggle <> _processData.TxPDOToggle THEN
+	dataPreviousToggle := _processData.TxPDOToggle;
+	_DataError := FALSE;
+ELSE
+	_DataError := TRUE;
+END_IF]]></ST>
     </Implementation>
+    <Property Name="DeviceState" Id="{21cdaadc-48b4-420f-878f-23212c8fd49a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DeviceState : bool]]></Declaration>
+      <Get Name="Get" Id="{a1ee6aee-57b1-453e-bba8-3a3013143ba4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DeviceState := _processData.TxPDOState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Error" Id="{79a5cfef-99b5-481c-81b7-13cb614e2233}">
       <Declaration><![CDATA[PROPERTY PUBLIC Error : bool]]></Declaration>
       <Get Name="Get" Id="{51c26d9b-c891-4b59-82f1-015c97e0525e}">
@@ -22,7 +41,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Error := _processData.Underrange OR _processData.Overrange OR _processData.SyncError OR _processData.Error;]]></ST>
+          <ST><![CDATA[Error := _processData.Underrange OR _processData.Overrange OR _processData.SyncError OR _processData.Error OR _DataError;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -31,23 +50,29 @@ END_VAR
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	SignalType : SignalType;
-	Resolution : Resolution;
+	SignalType : AnalogueSignalType;
+	Resolution : SignalResolution;
 	ProcessData : reference to AnalogueStatus;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[CASE SignalType OF
-	1: _signalType := 20;
-	2: _signalType := 20;
-	3: _signalType := 30;
-	4: _signalType := 10;
+	AnalogueSignalType._0_20mA :_signalType := 20;
+	AnalogueSignalType._4_20mA : _signalType := 20;
+	AnalogueSignalType._0_30V : _signalType := 30;
+	AnalogueSignalType._10_10V : _signalType := 10;
+	AnalogueSignalType._Invalid : _signalType := 0;
+ELSE
+	_signalType := 0;
 END_CASE
 
 CASE Resolution OF
-	1: _resolution := 2048;
-	2: _resolution := 32768;
-	3: _resolution := 8388608;
+	SignalResolution._12Bit : _resolution := 2048;
+	SignalResolution._16Bit : _resolution := 32768;
+	SignalResolution._24Bit : _resolution := 8388608;
+	SignalResolution.Invalid : _resolution := 0;
+ELSE
+	_resolution := 0;
 END_CASE
 
 _processData := ProcessData;]]></ST>
@@ -62,9 +87,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF (_resolution = 0) OR (_signalType = 0) THEN
 	RETURN;
+ELSE
+	GetConvertedValue := INT_TO_REAL(_processData.Value) * (DINT_TO_REAL(_signalType)/DINT_TO_REAL(_resolution));
 END_IF
-
-GetConvertedValue := _processData.Value * (_signalType/_resolution);]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetRawValue" Id="{840f64bd-c848-40ab-944f-b870f219b250}">
@@ -76,8 +102,26 @@ END_VAR
         <ST><![CDATA[GetRawValue := _processData.Value;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="ValueLimit" Id="{1511724f-24ce-40d3-bd17-01a57b8c5b6c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ValueLimit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7933b0c8-a790-474a-8fd9-6a6caf3111dc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ValueLimit := _processData.Limit1 OR _processData.Limit2;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <LineIds Name="FB_AnalogueInputBase">
       <LineId Id="9" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="22" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.DeviceState.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.Error.Get">
       <LineId Id="2" Count="0" />
@@ -85,21 +129,29 @@ END_VAR
     <LineIds Name="FB_AnalogueInputBase.FB_init">
       <LineId Id="7" Count="0" />
       <LineId Id="12" Count="3" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="33" Count="1" />
       <LineId Id="11" Count="0" />
       <LineId Id="17" Count="0" />
       <LineId Id="16" Count="0" />
       <LineId Id="18" Count="0" />
       <LineId Id="20" Count="1" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="35" Count="1" />
       <LineId Id="19" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.GetConvertedValue">
-      <LineId Id="15" Count="3" />
+      <LineId Id="15" Count="2" />
+      <LineId Id="23" Count="1" />
       <LineId Id="8" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.GetRawValue">
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputBase.ValueLimit.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
