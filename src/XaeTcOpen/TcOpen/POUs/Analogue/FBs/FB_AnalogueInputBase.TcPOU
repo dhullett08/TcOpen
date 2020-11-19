@@ -52,7 +52,7 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	SignalType : AnalogueSignalType;
 	Resolution : SignalResolution;
-	ProcessData : reference to AnalogueStatus;
+	ProcessData : REFERENCE TO AnalogueStatus;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -75,7 +75,12 @@ ELSE
 	_resolution := 0;
 END_CASE
 
-_processData := ProcessData;]]></ST>
+IF __ISVALIDREF(ProcessData) THEN
+	_processData := ProcessData;	
+ELSE
+	RETURN;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetConvertedValue" Id="{1d77c5be-2386-4642-9531-4f10dc497ecd}">
@@ -124,7 +129,7 @@ END_VAR
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.Error.Get">
-      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.FB_init">
       <LineId Id="7" Count="0" />
@@ -139,7 +144,9 @@ END_VAR
       <LineId Id="54" Count="0" />
       <LineId Id="35" Count="1" />
       <LineId Id="19" Count="0" />
-      <LineId Id="24" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="68" Count="3" />
+      <LineId Id="67" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>
     <LineIds Name="FB_AnalogueInputBase.GetConvertedValue">

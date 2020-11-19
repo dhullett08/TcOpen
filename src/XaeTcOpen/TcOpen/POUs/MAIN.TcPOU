@@ -4,10 +4,11 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	//fbCylinderTest : FB_CylinderTest;
+	fbAnalogue : FB_AnalogueInputTest;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//tcUnit.RUN();
+      <ST><![CDATA[tcUnit.RUN();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">

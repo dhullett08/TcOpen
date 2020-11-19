@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="FB_AnalogueInputTest" Id="{4b624b13-8320-4357-a153-692da183e6e0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputTest
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputTest EXTENDS TcUnit.FB_TestSuite
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
 	analogueIn : AnalogueStatus;
-	fbAnalogue : FB_AnalogueInputBase(SignalType := AnalogueSignalType._0_20mA, Resolution := SignalResolution._12Bit, ProcessData := analogueIn);
+	TestProcessData : REFERENCE TO AnalogueStatus := analogueIn;
+	fbAnalogue : FB_AnalogueInputBase(AnalogueSignalType._0_20mA, SignalResolution._12Bit, TestProcessData);
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[CheckError();]]></ST>
     </Implementation>
     <Method Name="CheckConvertedValue" Id="{1d8e5d28-cc2c-40d8-8717-72a573ebe234}">
       <Declaration><![CDATA[METHOD CheckConvertedValue : BOOL
@@ -26,7 +27,8 @@ END_VAR
     <Method Name="CheckError" Id="{a96aba15-f2f0-4b1b-bddc-ae4a79e277df}">
       <Declaration><![CDATA[METHOD CheckError : BOOL
 VAR
-	
+	result : BOOL;
+	expectedResult : BOOL := TRUE;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -41,8 +43,8 @@ analogueIn.Error := true;
 result := fbAnalogue.Error;
 
 // assert
-AssertEquals(Actual := result, Expected := expectedResult, Message := 'Axis did not disable');
-TestTwoFinished := TRUE;	
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Analogue didnt report error');
+
 
 TEST_FINISHED_NAMED('Check Axis Disable');]]></ST>
       </Implementation>
