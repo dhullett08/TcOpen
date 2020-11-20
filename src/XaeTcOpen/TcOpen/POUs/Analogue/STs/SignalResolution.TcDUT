@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <DUT Name="SignalResolution" Id="{8a5e6cee-34c1-4f68-a47b-67841360236e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE SignalResolution :
+(
+	Invalid := 0,
+	_12Bit := 1,
+	_16Bit := 2,
+	_24Bit := 3
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

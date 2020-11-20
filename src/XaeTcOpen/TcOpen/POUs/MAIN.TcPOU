@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="MAIN" Id="{f20f72a3-44bd-4b01-bab9-6aeb1376a30d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	fbCylinderTest : FB_CylinderTest;
+	//fbCylinderTest : FB_CylinderTest;
+	fbAnalogue : FB_AnalogueInputTest;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tcUnit.RUN();
-]]></ST>
+      <ST><![CDATA[tcUnit.RUN();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
-      <LineId Id="7" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

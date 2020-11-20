@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_AnalogueInputTest" Id="{4b624b13-8320-4357-a153-692da183e6e0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AnalogueInputTest EXTENDS TcUnit.FB_TestSuite
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	analogueIn : AnalogueStatus;
+	TestProcessData : REFERENCE TO AnalogueStatus := analogueIn;
+	fbAnalogue : FB_AnalogueInputBase(AnalogueSignalType._0_20mA, SignalResolution._16Bit, TestProcessData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CheckConvertedValue();
+CheckError();
+CheckOverRange();
+CheckRawValue();
+CheckSyncError();
+CheckUnderRange();]]></ST>
+    </Implementation>
+    <Method Name="CheckConvertedValue" Id="{1d8e5d28-cc2c-40d8-8717-72a573ebe234}">
+      <Declaration><![CDATA[METHOD CheckConvertedValue : BOOL
+VAR
+	result : REAL;
+	expectedResult : REAL := 9.765;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check Converted Value');
+
+// arrange
+analogueIn.Value := 16000;
+
+// act
+result := fbAnalogue.GetConvertedValue();
+
+// assert
+AssertEquals_REAL(Actual := result, Expected := expectedResult, Delta := 0.05, Message := 'Converted value not returned');
+analogueIn.Value := 0;
+
+TEST_FINISHED_NAMED('Check Convertered Value');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckError" Id="{a96aba15-f2f0-4b1b-bddc-ae4a79e277df}">
+      <Declaration><![CDATA[METHOD CheckError : BOOL
+VAR
+	result : BOOL;
+	expectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check Error reporting');
+
+// arrange
+analogueIn.Error := TRUE;
+
+// act
+result := fbAnalogue.Error;
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Analogue didnt report error');
+analogueIn.Error := FALSE;
+
+TEST_FINISHED_NAMED('Check Error');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOverRange" Id="{67a3bc0e-910e-4fba-9d73-7a181ad8f536}">
+      <Declaration><![CDATA[METHOD CheckOverRange : bool
+VAR
+	result : BOOL;
+	expectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check Overrange reporting');
+
+// arrange
+analogueIn.Overrange := TRUE;
+
+// act
+result := fbAnalogue.Error;
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Analogue didnt report Overrange error');
+analogueIn.Overrange := FALSE;
+
+TEST_FINISHED_NAMED('Check Overrange');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRawValue" Id="{d4ed59de-963f-483a-94ed-421617e5b806}">
+      <Declaration><![CDATA[METHOD CheckRawValue : BOOL
+VAR
+	result : INT;
+	expectedResult : int := 16000;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check Raw Value');
+
+// arrange
+analogueIn.Value := expectedResult;
+
+// act
+result := fbAnalogue.GetRawValue();
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Raw value not returned');
+analogueIn.Value := 0;
+
+TEST_FINISHED_NAMED('Check Raw Value');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckSyncError" Id="{e34cd7e5-1157-45d7-abb9-94144fe6b6ec}">
+      <Declaration><![CDATA[METHOD CheckSyncError : bool
+VAR
+	result : BOOL;
+	expectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check SyncError reporting');
+
+// arrange
+analogueIn.SyncError := TRUE;
+
+// act
+result := fbAnalogue.Error;
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Analogue didnt report Sync error');
+analogueIn.SyncError := FALSE;
+
+TEST_FINISHED_NAMED('Check Sync Error');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckUnderRange" Id="{d26a650e-647f-450a-9b8c-36a5f3f6b496}">
+      <Declaration><![CDATA[METHOD CheckUnderRange : bool
+VAR
+	result : BOOL;
+	expectedResult : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Check Underrange reporting');
+
+// arrange
+analogueIn.Underrange := TRUE;
+
+// act
+result := fbAnalogue.Error;
+
+// assert
+AssertEquals(Actual := result, Expected := expectedResult, Message := 'Analogue didnt report underrange error');
+analogueIn.Underrange := FALSE;
+
+TEST_FINISHED_NAMED('Check Underrage');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_AnalogueInputTest">
+      <LineId Id="9" Count="0" />
+      <LineId Id="21" Count="4" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckConvertedValue">
+      <LineId Id="11" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckError">
+      <LineId Id="11" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="23" Count="8" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckOverRange">
+      <LineId Id="6" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckRawValue">
+      <LineId Id="11" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckSyncError">
+      <LineId Id="8" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnalogueInputTest.CheckUnderRange">
+      <LineId Id="8" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

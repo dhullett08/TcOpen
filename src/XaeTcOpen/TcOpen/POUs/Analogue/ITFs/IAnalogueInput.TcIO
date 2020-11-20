@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <Itf Name="IAnalogueInput" Id="{e636cff6-7a32-4dc7-89f1-d79afca9588b}">
+    <Declaration><![CDATA[INTERFACE IAnalogueInput
+]]></Declaration>
+    <Property Name="Error" Id="{ceb3dd31-0f47-4b83-8621-f22886152bee}">
+      <Declaration><![CDATA[PROPERTY Error : bool]]></Declaration>
+      <Get Name="Get" Id="{d8504d6a-40d2-406d-b6b7-8e5d4a91f722}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="GetConvertedValue" Id="{89754de7-153c-4a85-9bd0-ede4a8f0cc1d}">
+      <Declaration><![CDATA[METHOD GetConvertedValue : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetRawValue" Id="{8d200988-97d3-474f-bb0a-ffaada991048}">
+      <Declaration><![CDATA[METHOD GetRawValue : int
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

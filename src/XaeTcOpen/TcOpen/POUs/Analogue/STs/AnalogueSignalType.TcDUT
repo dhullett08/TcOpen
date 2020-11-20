@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <DUT Name="AnalogueSignalType" Id="{255d19a1-9260-4e07-ba7b-4bb74e3bd7fe}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE AnalogueSignalType :
+(
+	_Invalid := 0,
+	_0_20mA := 1,
+	_4_20mA := 2,
+	_0_30V := 3,
+	_10_10V := 4
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
