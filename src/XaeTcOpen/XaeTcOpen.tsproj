@@ -60,111 +60,39 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.analogueIn.Underrange</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Underrange</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.Overrange</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Overrange</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.Limit1</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Limit1</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.Limit2</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Limit2</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.Error</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Error</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.SyncError</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.SyncError</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.TxPDOState</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.TxPDOState</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.TxPDOToggle</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.TxPDOToggle</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.analogueIn.Value</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Underrange</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Overrange</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Limit1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Limit2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Error</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.SyncError</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.TxPDOState</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.TxPDOToggle</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nA.Value</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Underrange</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Overrange</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Limit1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Limit2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Error</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.SyncError</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.TxPDOState</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.TxPDOToggle</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbAnalogue.nB.Value</Name>
+							<Name>MAIN.fbAnalogue.analogueIn.Value</Name>
 							<Type>INT</Type>
 						</Var>
 					</Vars>
