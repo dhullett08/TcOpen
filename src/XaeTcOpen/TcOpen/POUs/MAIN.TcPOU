@@ -8,12 +8,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tcUnit.RUN();
-]]></ST>
+      <ST><![CDATA[tcUnit.RUN();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
-      <LineId Id="7" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

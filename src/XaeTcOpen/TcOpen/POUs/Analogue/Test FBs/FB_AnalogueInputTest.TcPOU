@@ -13,7 +13,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CheckError();]]></ST>
+      <ST><![CDATA[//CheckError();]]></ST>
     </Implementation>
     <Method Name="CheckConvertedValue" Id="{1d8e5d28-cc2c-40d8-8717-72a573ebe234}">
       <Declaration><![CDATA[METHOD CheckConvertedValue : BOOL
