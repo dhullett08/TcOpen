@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_Cylinder_1" Id="{4a4d6dd2-5490-43cc-b30a-511aab936e58}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Cylinder_1 IMPLEMENTS ITF_Cylinder
+VAR
+	_atHomePos AT %I* : BOOL; // Link With Home Position Sensor
+	_atWorkPos AT %I* : BOOL; // Link With Work Position Sensor
+	toHomePos AT %Q* : BOOL;
+	toWorkPos AT %Q* : BOOL;
+	
+	{attribute 'hide'}
+	_simulate : BOOL := TRUE;
+	simTimer : TON := ( PT := CYLINDER_MOVE_TIME );
+END_VAR
+VAR CONSTANT
+	CYLINDER_MOVE_TIME : TIME := T#1S;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{421b5337-e995-40fb-aba2-4176c9bf04ca}" />
+    <Folder Name="Props" Id="{30b8d09f-d264-487c-adac-f704f2f9b675}" />
+    <Property Name="AtHome" Id="{47da66d8-5d0c-4067-81ec-658d24dc9a7f}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY AtHome : bool]]></Declaration>
+      <Get Name="Get" Id="{572301e4-3e8a-42cb-9d02-21eef0dea0d1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AtHome := _atHomePos OR_ELSE simTimer.Q;
+simTimer( IN := _simulate AND_THEN toHomePos );]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="AtWork" Id="{1f06914f-45b0-42d7-8877-978e867270bb}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY AtWork : bool]]></Declaration>
+      <Get Name="Get" Id="{ea38930e-f705-4e17-8825-cccebd6aa905}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AtWork := _atWorkPos OR_ELSE simTimer.Q;
+simTimer( IN := _simulate AND_THEN toWorkPos );]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MoveToHome" Id="{371d9fc7-9b6c-4c93-8896-f96284459f17}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD MoveToHome]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[toHomePos := TRUE;
+toWorkPos := FALSE; 
+simTimer( IN := FALSE );]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToWork" Id="{5b531c35-d6d5-4d36-b459-1b66b6844bbe}" FolderPath="Methods\">
+      <Declaration><![CDATA[/// Move To Work Position
+METHOD MoveToWork
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[toWorkPos := TRUE; 
+toHomePos := FALSE;
+simTimer( IN := FALSE );]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MovingToHomePosition" Id="{d85f6d6d-1fcd-44a7-a8bb-79beeaebde2c}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY MovingToHomePosition : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{fc085a47-c687-46ee-a1c2-ede8b5fd304b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MovingToHomePosition := toHomePos AND NOT AtHome;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="MovingToWorkPosition" Id="{9380a718-018b-480d-9b6f-c32849365348}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY MovingToWorkPosition : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{87254797-56af-474f-825b-b4807b588849}">
+        <Declaration><![CDATA[
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MovingToWorkPosition := toWorkPos AND NOT AtWork;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetSimulationMode" Id="{e6a68196-9278-4167-a2c5-fa30e330b259}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PROTECTED SetSimulationMode : BOOL
+VAR_INPUT
+	Active : BOOL; 
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (MovingToHomePosition OR MovingToWorkPosition) THEN
+	RETURN; // Cannot set simulation while moving.
+END_IF
+
+_simulate := Active;
+SetSimulationMode := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SimulationActive" Id="{ae8171c4-c362-401e-93f2-9371f6bd9dbe}" FolderPath="Props\">
+      <Declaration><![CDATA[PROPERTY PUBLIC SimulationActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a3306cc1-987a-4ac4-b09f-681bc64096dd}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SimulationActive := _simulate;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_Cylinder_1">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.AtHome.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.AtWork.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.MoveToHome">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.MoveToWork">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.MovingToHomePosition.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.MovingToWorkPosition.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.SetSimulationMode">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Cylinder_1.SimulationActive.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <Itf Name="ITF_Cylinder_1" Id="{c050f9b7-33bc-4f0e-829a-037569e3e0d3}">
+    <Declaration><![CDATA[INTERFACE ITF_Cylinder_1 EXTENDS __System.IQueryInterface
+]]></Declaration>
+    <Property Name="AtHome" Id="{9be9faf8-f832-4fef-a16b-17eda5d6792f}">
+      <Declaration><![CDATA[PROPERTY AtHome : bool]]></Declaration>
+      <Get Name="Get" Id="{2c278cb7-3294-4f66-9f77-959e5de59fd6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="AtWork" Id="{bef5b246-687f-4059-9bdb-464a2fdc8065}">
+      <Declaration><![CDATA[PROPERTY AtWork : bool]]></Declaration>
+      <Get Name="Get" Id="{bf9ef0ab-7168-4490-b62e-815115395aa6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="MoveToHome" Id="{c4d0b86e-9792-40d8-85f3-3e2789dd50af}">
+      <Declaration><![CDATA[METHOD MoveToHome
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveToWork" Id="{0a9e4851-8c22-4cec-a74e-c383e405942d}">
+      <Declaration><![CDATA[METHOD MoveToWork
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="MovingToHomePosition" Id="{f1a78f57-fdaa-45b4-ad2b-fa5cd759f940}">
+      <Declaration><![CDATA[PROPERTY MovingToHomePosition : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8b2013d5-59bb-473b-b3f7-984b76595fab}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="MovingToWorkPosition" Id="{9ccec143-9b0c-497c-a55c-04c97c2f4a63}">
+      <Declaration><![CDATA[PROPERTY MovingToWorkPosition : BOOL]]></Declaration>
+      <Get Name="Get" Id="{38ae343f-0145-425b-bb65-a916b806c4cc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>
