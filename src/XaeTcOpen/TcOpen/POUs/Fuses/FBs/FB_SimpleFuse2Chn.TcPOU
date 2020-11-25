@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="FB_SimpleFuse2Chn" Id="{f41cff7b-2f7a-4101-8960-98cab2bdc4ab}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimpleFuse2Chn
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimpleFuse2Chn EXTENDS FB_SimpleFuse
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	Chn1 : EL922x_ChannelBasic;
 	Chn2 : EL922x_ChannelBasic;
 END_VAR
 ]]></Declaration>
