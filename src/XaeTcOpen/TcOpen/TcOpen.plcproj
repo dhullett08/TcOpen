@@ -30,13 +30,52 @@
     <Compile Include="POUs\Cylinders\FBs\FB_CylinderWithPressureFeedback.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Cylinders\FBs\FB_CylinderWithPressureFeedback_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\FBs\FB_Cylinder_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\ITFs\ITF_Cylinder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\ITFs\ITF_Cylinder_1.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Cylinders\ST_AnalogSensorStatusWord.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Cylinders\ST_AnalogSensorStatusWord_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Cylinders\Test FBs\FB_CylinderTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Cylinders\Test FBs\FB_CylinderTest_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_FuseAdvanced.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_SimpleFuse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_SimpleFuse2Chn.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\STs\EL922x_ChannelExtended.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\STs\EL922x_ChannelBasic.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\STs\OutputStruct.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\STs\StatusStructBasic.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\STs\StatusStructExtended.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -53,6 +92,10 @@
     <Folder Include="POUs\Cylinders\ITFs" />
     <Folder Include="POUs\Cylinders\FBs" />
     <Folder Include="POUs\Cylinders\Test FBs" />
+    <Folder Include="POUs\Fuses" />
+    <Folder Include="POUs\Fuses\FBs" />
+    <Folder Include="POUs\Fuses\STs" />
+    <Folder Include="POUs\Fuses\Tests" />
     <Folder Include="Version" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

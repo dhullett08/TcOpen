@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_FuseAdvanced" Id="{e62c69d5-30eb-4744-8257-2617f7fd3e98}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_FuseAdvanced 
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	Chn1 : EL922x_ChannelExtended;
+	Chn2 : EL922x_ChannelExtended;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_FuseAdvanced">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

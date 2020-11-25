@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
-  <DUT Name="StatusStruct" Id="{2a641705-ab07-42d5-9d4f-08c804024823}">
-    <Declaration><![CDATA[{attribute 'pack_mode' := '0'} 
-TYPE StatusStruct :
+  <DUT Name="StatusStructExtended" Id="{2a641705-ab07-42d5-9d4f-08c804024823}">
+    <Declaration><![CDATA[TYPE StatusStructExtended :
 STRUCT
 	Enable: BIT;
 	Tripped : BIT;
