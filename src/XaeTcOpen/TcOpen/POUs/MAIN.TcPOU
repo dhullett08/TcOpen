@@ -4,17 +4,16 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbCylinderTest : FB_CylinderTest;
-	test1 : FB_FuseAdvanced;
+	test1 : FB_SimpleFuse2Chn;
 	test2 : FB_SimpleFuse;
+	test3 : FB_FuseAdvanced;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tcUnit.RUN();
-]]></ST>
+      <ST><![CDATA[tcUnit.RUN();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
-      <LineId Id="14" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -3,7 +3,7 @@
   <DUT Name="StatusStructBasic" Id="{fc5b23a5-cf27-4546-8a0e-647f2767b746}">
     <Declaration><![CDATA[TYPE StatusStructBasic :
 STRUCT
-		Enable: BIT;
+		Enabled: BIT;
 		Tripped : BIT;
 		{attribute 'hide'}
 		_hidden_bit_0: BIT;
@@ -24,7 +24,7 @@ STRUCT
 		{attribute 'hide'}
 		_hidden_bit_6: BIT;
 		Diag : BIT;
-		TcPDOState : BIT;
+		TxPDOState : BIT;
 		{attribute 'hide'}
 		_hidden_bit_7: BIT;
 		{attribute 'hide'}

@@ -54,13 +54,28 @@
     <Compile Include="POUs\Cylinders\Test FBs\FB_CylinderTest_1.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_EL922x_ChannelExtended.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_EL922x_ChannelBasic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Fuses\FBs\FB_FuseAdvanced.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\FBs\FB_FuseTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Fuses\FBs\FB_SimpleFuse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Fuses\FBs\FB_SimpleFuse2Chn.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\ITFs\ITF_EL922x_ChannelBasic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fuses\ITFs\ITF_EL922x_ChannelExtended.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Fuses\STs\EL922x_ChannelExtended.TcDUT">
@@ -94,6 +109,7 @@
     <Folder Include="POUs\Cylinders\Test FBs" />
     <Folder Include="POUs\Fuses" />
     <Folder Include="POUs\Fuses\FBs" />
+    <Folder Include="POUs\Fuses\ITFs" />
     <Folder Include="POUs\Fuses\STs" />
     <Folder Include="POUs\Fuses\Tests" />
     <Folder Include="Version" />

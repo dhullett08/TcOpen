@@ -2,6 +2,216 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.11">
 	<DataTypes>
 		<DataType>
+			<Name GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}" AutoDeleteType="true">StatusStructBasic</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>Enable</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Tripped</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>HWProtection</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CurrentLevelWarning</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CoolDownLock</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Diag</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TcPDOState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Error</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>18</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>19</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateSwitch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>20</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}" AutoDeleteType="true">StatusStructExtended</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>Enable</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Tripped</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ShortCircuit</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Overload</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>HWProtection</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Overvoltage</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Undervoltage</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CurrentLevelWarning</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CoolDownLock</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DisabledBySwitch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DisabledByDI</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DisabledByOutput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Diag</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TcPDOState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InputCycleCount</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InputCycleCount2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateDeviceSwitch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateDigitalInput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>17</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Error</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>18</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>19</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateSwitch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>20</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}" AutoDeleteType="true">OutputStruct</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Reset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Switch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-00200000000B}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..10] OF BIT</Name>
 			<BitSize>11</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
@@ -69,9 +279,69 @@
 							<Comment><![CDATA[ Link With Work Position Sensor]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.test1.Chn1.Status</Name>
+							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test1.Chn2.Status</Name>
+							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test2.Chn1.Status</Name>
+							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.Status</Name>
+							<Type GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}">StatusStructExtended</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.Load</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.Current</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.VoltageIn</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.VoltageOut</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.Status</Name>
+							<Type GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}">StatusStructExtended</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.Load</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.Current</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.VoltageIn</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.VoltageOut</Name>
+							<Type>UINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>MAIN.test1.Chn1.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test1.Chn2.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
+						</Var>
 						<Var>
 							<Name>MAIN.fbCylinderTest.fbCylinder.toHomePos</Name>
 							<Type>BOOL</Type>
@@ -79,6 +349,18 @@
 						<Var>
 							<Name>MAIN.fbCylinderTest.fbCylinder.toWorkPos</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test2.Chn1.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn1.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.test3.Chn2.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
 						</Var>
 					</Vars>
 					<Contexts>
@@ -149,13 +431,13 @@
 							<MBoxUserCmdData>004003000a00000000000000030010000000000000000000000000000000000020f3100502000000010000</MBoxUserCmdData>
 							<Pdo Name="OCP Inputs Channel 1" Index="#x1a00" Flags="#x0010" SyncMan="3">
 								<ExcludePdo>#x1a01</ExcludePdo>
-								<Entry Name="Status__Enabled" Index="#x6000" Sub="#x01" Flags="#x00008020">
+								<Entry Name="Status__Enabled" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Status__Tripped" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Short Circuit" Index="#x6000" Sub="#x03" Flags="#x00008020">
+								<Entry Name="Status__Short Circuit" Index="#x6000" Sub="#x03">
 									<Type>BIT</Type>
 									<Comment><![CDATA[>= 1,5 * In]]></Comment>
 								</Entry>
@@ -163,52 +445,52 @@
 									<Type>BIT</Type>
 									<Comment><![CDATA[>= 1,1 * In]]></Comment>
 								</Entry>
-								<Entry Name="Status__Hardware Protection" Index="#x6000" Sub="#x05" Flags="#x00008020">
+								<Entry Name="Status__Hardware Protection" Index="#x6000" Sub="#x05">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Status__Overvoltage" Index="#x6000" Sub="#x06">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Undervoltage" Index="#x6000" Sub="#x07" Flags="#x00008020">
+								<Entry Name="Status__Undervoltage" Index="#x6000" Sub="#x07">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Current Level Warning" Index="#x6000" Sub="#x08" Flags="#x00008020">
+								<Entry Name="Status__Current Level Warning" Index="#x6000" Sub="#x08">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Cool Down Lock" Index="#x6000" Sub="#x09" Flags="#x00008020">
+								<Entry Name="Status__Cool Down Lock" Index="#x6000" Sub="#x09">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Disabled By Switch" Index="#x6000" Sub="#x0a" Flags="#x00008020">
+								<Entry Name="Status__Disabled By Switch" Index="#x6000" Sub="#x0a">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Disabled By DI" Index="#x6000" Sub="#x0b" Flags="#x00008020">
+								<Entry Name="Status__Disabled By DI" Index="#x6000" Sub="#x0b">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Disabled By Output" Index="#x6000" Sub="#x0c" Flags="#x00008020">
+								<Entry Name="Status__Disabled By Output" Index="#x6000" Sub="#x0c">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Diag" Index="#x6000" Sub="#x0d" Flags="#x00008020">
+								<Entry Name="Status__Diag" Index="#x6000" Sub="#x0d">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__TxPDO State" Index="#x6000" Sub="#x0e" Flags="#x00008020">
+								<Entry Name="Status__TxPDO State" Index="#x6000" Sub="#x0e">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Input cycle counter" Index="#x6000" Sub="#x0f" Flags="#x00008020">
+								<Entry Name="Status__Input cycle counter" Index="#x6000" Sub="#x0f">
 									<Type>BIT2</Type>
 								</Entry>
-								<Entry Name="Status__State Device Switch" Index="#x6000" Sub="#x11" Flags="#x00008020">
+								<Entry Name="Status__State Device Switch" Index="#x6000" Sub="#x11">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__State Digital Input" Index="#x6000" Sub="#x12" Flags="#x00008020">
+								<Entry Name="Status__State Digital Input" Index="#x6000" Sub="#x12">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__Error" Index="#x6000" Sub="#x13" Flags="#x00008020">
+								<Entry Name="Status__Error" Index="#x6000" Sub="#x13">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__State Reset" Index="#x6000" Sub="#x14" Flags="#x00008020">
+								<Entry Name="Status__State Reset" Index="#x6000" Sub="#x14">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Status__State Switch" Index="#x6000" Sub="#x15" Flags="#x00008020">
+								<Entry Name="Status__State Switch" Index="#x6000" Sub="#x15">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Status__">
@@ -593,7 +875,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>16843052</ModuleIdent>
 								<Module Id="#x03090001" Type="AI Standard" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>020000002c010100000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6656</PdoIndex>
 								</Module>
@@ -604,7 +886,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>16843052</ModuleIdent>
 								<Module Id="#x03090002" Type="AI Standard" Class="">
 									<Name>Ch. 2</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>020000002c010100000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6658</PdoIndex>
 								</Module>
@@ -614,7 +896,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090003" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -623,7 +905,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090004" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -632,7 +914,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090005" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -641,7 +923,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090006" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -650,7 +932,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090007" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -659,7 +941,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090008" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -676,7 +958,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x03090009" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -685,7 +967,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000a" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -694,7 +976,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000b" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -703,7 +985,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000c" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -712,7 +994,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000d" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -721,7 +1003,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000e" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>
@@ -730,7 +1012,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>0</ModuleIdent>
 								<Module Id="#x0309000f" Type="Empty" Class="">
 									<Name>Ch. 1</Name>
-									<ImageId>408</ImageId>
+									<ImageId>407</ImageId>
 									<ModuleData>0200000000000000000004000000000000000000000000000000000000000000</ModuleData>
 								</Module>
 							</Slot>

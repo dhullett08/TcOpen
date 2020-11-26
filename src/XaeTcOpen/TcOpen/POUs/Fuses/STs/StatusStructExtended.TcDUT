@@ -3,7 +3,7 @@
   <DUT Name="StatusStructExtended" Id="{2a641705-ab07-42d5-9d4f-08c804024823}">
     <Declaration><![CDATA[TYPE StatusStructExtended :
 STRUCT
-	Enable: BIT;
+	Enabled: BIT;
 	Tripped : BIT;
 	ShortCircuit : BIT;
 	Overload : BIT;
@@ -17,7 +17,7 @@ STRUCT
 	DisabledByDI : BIT;
 	DisabledByOutput : BIT;
 	Diag : BIT;
-	TcPDOState : BIT;
+	TxPDOState : BIT;
 	InputCycleCount : BIT;
 	InputCycleCount2 : BIT;
 	
