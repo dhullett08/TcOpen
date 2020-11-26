@@ -21,6 +21,9 @@
     <Author>Dustin Hullett</Author>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\FB_EL922x_ChannelBasic_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>

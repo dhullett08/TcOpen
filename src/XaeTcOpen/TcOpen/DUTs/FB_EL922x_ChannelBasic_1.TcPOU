@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_EL922x_ChannelBasic_1" Id="{217eb7e0-aa40-4892-a9c6-20fefeef290a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EL922x_ChannelBasic_1 IMPLEMENTS ITF_EL922x_ChannelBasic
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	_Chn : EL922x_ChannelBasic;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_EL922x_ChannelBasic_1">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

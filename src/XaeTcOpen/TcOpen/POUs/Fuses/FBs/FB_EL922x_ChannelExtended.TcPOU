@@ -13,6 +13,45 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Property Name="CoolDownLock" Id="{9f6b3335-b65d-400c-b3b1-713c8ad09f88}">
+      <Declaration><![CDATA[
+PROPERTY CoolDownLock : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{5c318f7e-f056-4b9f-9363-e455a9a2596c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CoolDownLock := _Chn.Status.CoolDownLock;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CurrentLevelWarning" Id="{0360d5a7-7c61-45f4-8fdd-775d146a5c91}">
+      <Declaration><![CDATA[
+PROPERTY CurrentLevelWarning : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{e2174f31-7978-4c0a-ad9d-408ae3125894}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentLevelWarning := _Chn.Status.CurrentLevelWarning;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Diag" Id="{7eb78a12-9e70-49d0-a1b1-487235c46144}">
+      <Declaration><![CDATA[
+PROPERTY Diag : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{ffbc3b4b-9ff8-4b3f-99dc-2b3c7c69bf6a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Diag := _Chn.Status.Diag;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="DisabledByDI" Id="{2150f53c-023b-4828-bdb2-98cb9d13e37e}">
       <Declaration><![CDATA[
 PROPERTY DisabledByDI : BOOL
@@ -52,6 +91,45 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Property Name="Enabled" Id="{d074166d-a6de-4e96-b672-d05ad04924d2}">
+      <Declaration><![CDATA[
+PROPERTY Enabled : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{f2e07ab5-e935-41e7-ab73-d7b8aab6d3eb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Enabled := _Chn.Status.Enabled;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{03b13a74-846a-41e9-807e-d15bccd31df3}">
+      <Declaration><![CDATA[
+PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{bbcc7021-e162-46f3-8e98-00c47ca12518}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _Chn.Status.Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="HardwareProtection" Id="{4807c9c9-6da4-42bc-bfba-05ac5845519a}">
+      <Declaration><![CDATA[
+PROPERTY HardwareProtection : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{f7025bd0-3e51-488c-8c58-86f24c18d42b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HardwareProtection := _Chn.Status.HWProtection;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Overload" Id="{347322a6-d7e5-4ecc-bd2c-eae47d597746}">
       <Declaration><![CDATA[
 PROPERTY Overload : BOOL
@@ -78,6 +156,14 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="ResetFuse" Id="{2b4d990f-2948-49f6-ad4c-a485a8527eb7}">
+      <Declaration><![CDATA[
+METHOD ResetFuse : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Chn.Control.Reset := NOT _Chn.Control.Reset;]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="ShortCircuit" Id="{c0944107-7473-421b-ba5d-e276cd557859}">
       <Declaration><![CDATA[
 PROPERTY ShortCircuit : BOOL
@@ -117,6 +203,65 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Property Name="StateReset" Id="{1c5614f4-9a40-48fb-be99-8b937db9c62c}">
+      <Declaration><![CDATA[
+PROPERTY StateReset : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{91ad4b19-343b-4858-af7c-95ce8cdc05be}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StateReset := _Chn.Status.StateReset;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="StateSwitch" Id="{82e0f3a0-1a80-431c-8046-fe6612b24749}">
+      <Declaration><![CDATA[
+PROPERTY StateSwitch : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{6978f021-3cc2-4e1f-ab09-982ff307e4ff}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StateSwitch := _Chn.Status.StateSwitch;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SwitchFuse" Id="{c1d9eaa5-282f-4d44-a81a-0b08744cad5a}">
+      <Declaration><![CDATA[METHOD SwitchFuse : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Chn.Control.Switch := NOT _Chn.Control.Switch;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Tripped" Id="{25fe19c5-defa-4824-b098-2bbd014cbb60}">
+      <Declaration><![CDATA[
+PROPERTY Tripped : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{535ebfb7-d2a8-4f68-a8d3-4f06a65baf8a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Tripped := _Chn.Status.Tripped;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="TxPDOState" Id="{21f7c631-024d-430e-9580-c8448e0d701d}">
+      <Declaration><![CDATA[
+PROPERTY TxPDOState : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{c9a2baa8-8118-44f3-bdf4-2933f0e9b8c5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TxPDOState := _Chn.Status.TxPDOState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Undervoltage" Id="{c3be64b5-cefc-47cb-8b99-abcf7e0db533}">
       <Declaration><![CDATA[
 PROPERTY Undervoltage : BOOL
@@ -133,6 +278,15 @@ END_VAR
     <LineIds Name="FB_EL922x_ChannelExtended">
       <LineId Id="9" Count="0" />
     </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.CoolDownLock.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.CurrentLevelWarning.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.Diag.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.DisabledByDI.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
@@ -142,11 +296,23 @@ END_VAR
     <LineIds Name="FB_EL922x_ChannelExtended.DisabledBySwitch.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.Enabled.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.HardwareProtection.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.Overload.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.Overvoltage.Get">
       <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.ResetFuse">
+      <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.ShortCircuit.Get">
       <LineId Id="2" Count="0" />
@@ -155,6 +321,21 @@ END_VAR
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.StateDigitalInput.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.StateReset.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.StateSwitch.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.SwitchFuse">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.Tripped.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_EL922x_ChannelExtended.TxPDOState.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="FB_EL922x_ChannelExtended.Undervoltage.Get">

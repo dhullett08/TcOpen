@@ -2,74 +2,10 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.11">
 	<DataTypes>
 		<DataType>
-			<Name GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}" AutoDeleteType="true">StatusStructBasic</Name>
+			<Name GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}" AutoDeleteType="true">StatusStructExtended</Name>
 			<BitSize>32</BitSize>
 			<SubItem>
-				<Name>Enable</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Tripped</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>HWProtection</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>CurrentLevelWarning</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>CoolDownLock</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Diag</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>TcPDOState</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Error</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>18</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>StateReset</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>19</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>StateSwitch</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>20</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}" AutoDeleteType="true">StatusStructExtended</Name>
-			<BitSize>32</BitSize>
-			<SubItem>
-				<Name>Enable</Name>
+				<Name>Enabled</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>0</BitOffs>
@@ -147,7 +83,7 @@
 				<BitOffs>12</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>TcPDOState</Name>
+				<Name>TxPDOState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>13</BitOffs>
@@ -212,7 +148,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-00200000000B}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..10] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-00200000000B}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..10] OF BIT</Name>
 			<BitSize>11</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -221,7 +157,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-00200000000E}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..13] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-00200000000E}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..13] OF BIT</Name>
 			<BitSize>14</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -230,7 +166,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -239,7 +175,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
 			<BitSize>5</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -280,68 +216,48 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test1.Chn1.Status</Name>
-							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
+							<Name>MAIN.fbTest1._Chn.Status</Name>
+							<Type GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}">StatusStructExtended</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test1.Chn2.Status</Name>
-							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.test2.Chn1.Status</Name>
-							<Type GUID="{FA141233-13D8-0E51-2F0E-DD154782C62B}">StatusStructBasic</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.test3.Chn1.Status</Name>
-							<Type GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}">StatusStructExtended</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.test3.Chn1.Load</Name>
+							<Name>MAIN.fbTest1._Chn.Load</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn1.Current</Name>
+							<Name>MAIN.fbTest1._Chn.Current</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn1.VoltageIn</Name>
+							<Name>MAIN.fbTest1._Chn.VoltageIn</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn1.VoltageOut</Name>
+							<Name>MAIN.fbTest1._Chn.VoltageOut</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn2.Status</Name>
-							<Type GUID="{B214E218-6176-D2DB-24B2-ACEB66EBC1FC}">StatusStructExtended</Type>
+							<Name>MAIN.fbTest2._Chn.Status</Name>
+							<Type GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}">StatusStructExtended</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn2.Load</Name>
+							<Name>MAIN.fbTest2._Chn.Load</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn2.Current</Name>
+							<Name>MAIN.fbTest2._Chn.Current</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn2.VoltageIn</Name>
+							<Name>MAIN.fbTest2._Chn.VoltageIn</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn2.VoltageOut</Name>
+							<Name>MAIN.fbTest2._Chn.VoltageOut</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>MAIN.test1.Chn1.Control</Name>
-							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.test1.Chn2.Control</Name>
-							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
-						</Var>
 						<Var>
 							<Name>MAIN.fbCylinderTest.fbCylinder.toHomePos</Name>
 							<Type>BOOL</Type>
@@ -351,15 +267,11 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test2.Chn1.Control</Name>
+							<Name>MAIN.fbTest1._Chn.Control</Name>
 							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.test3.Chn1.Control</Name>
-							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.test3.Chn2.Control</Name>
+							<Name>MAIN.fbTest2._Chn.Control</Name>
 							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
 						</Var>
 					</Vars>
@@ -1034,4 +946,22 @@ Bit1: Value smaller than Limit2]]></Comment>
 			</Device>
 		</Io>
 	</Project>
+	<Mappings>
+		<OwnerA Name="TIPC^TcOpen^TcOpen Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL9227-5500)">
+				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Current" VarB="OCP Inputs Channel 1^Current"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Load" VarB="OCP Inputs Channel 1^Load"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Status" VarB="OCP Inputs Channel 1^Status"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.VoltageIn" VarB="OCP Inputs Channel 1^Voltage In"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.VoltageOut" VarB="OCP Inputs Channel 1^Voltage Out"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Current" VarB="OCP Inputs Channel 2^Current"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Load" VarB="OCP Inputs Channel 2^Load"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Status" VarB="OCP Inputs Channel 2^Status"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.VoltageIn" VarB="OCP Inputs Channel 2^Voltage In"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.VoltageOut" VarB="OCP Inputs Channel 2^Voltage Out"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbTest1._Chn.Control" VarB="OCP Outputs Channel 1^Control"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbTest2._Chn.Control" VarB="OCP Outputs Channel 2^Control"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>

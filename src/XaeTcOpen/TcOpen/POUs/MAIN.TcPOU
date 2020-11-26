@@ -4,16 +4,49 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbCylinderTest : FB_CylinderTest;
-	test1 : FB_SimpleFuse2Chn;
-	test2 : FB_SimpleFuse;
-	test3 : FB_FuseAdvanced;
+	fbTest : FB_FuseTest;
+	fbTest1 : FB_EL922x_ChannelExtended;
+	fbTest2 : FB_EL922x_ChannelExtended;
+	xTes: BOOL;
+	xTest1: BOOL;
+	switched: BOOL;
+	xTest2: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tcUnit.RUN();]]></ST>
+      <ST><![CDATA[//tcUnit.RUN();
+fbTest();
+
+IF xTes THEN
+	fbTest.METH(chn1 := fbTest1, chn2 := fbTest2);
+	xTes := false;
+END_IF
+IF xTest1 THEN
+	switched := fbTest.GetDisabledBySwitch();
+	xTest1 := FALSE;
+END_IF
+
+IF xTest2 THEN
+	fbTest.SwitchChannel1();
+	xTest2 := FALSE;
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="30" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
