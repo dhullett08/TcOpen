@@ -2,6 +2,70 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.11">
 	<DataTypes>
 		<DataType>
+			<Name GUID="{9C4E351A-2140-503B-1609-725945B21645}" AutoDeleteType="true">StatusStructBasic</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>Enabled</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Tripped</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>HWProtection</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CurrentLevelWarning</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CoolDownLock</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Diag</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TxPDOState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Error</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>18</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>19</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>StateSwitch</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>20</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
 			<Name GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}" AutoDeleteType="true">StatusStructExtended</Name>
 			<BitSize>32</BitSize>
 			<SubItem>
@@ -206,75 +270,71 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.fbCylinderTest.fbCylinder._atHomePos</Name>
-							<Comment><![CDATA[ Link With Home Position Sensor]]></Comment>
-							<Type>BOOL</Type>
+							<Name>MAIN.chn1._Chn.Status</Name>
+							<Type GUID="{9C4E351A-2140-503B-1609-725945B21645}">StatusStructBasic</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbCylinderTest.fbCylinder._atWorkPos</Name>
-							<Comment><![CDATA[ Link With Work Position Sensor]]></Comment>
-							<Type>BOOL</Type>
+							<Name>MAIN.chn2._Chn.Status</Name>
+							<Type GUID="{9C4E351A-2140-503B-1609-725945B21645}">StatusStructBasic</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest1._Chn.Status</Name>
+							<Name>MAIN.chn2._ChnEx.Status</Name>
 							<Type GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}">StatusStructExtended</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest1._Chn.Load</Name>
+							<Name>MAIN.chn2._ChnEx.Load</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest1._Chn.Current</Name>
+							<Name>MAIN.chn2._ChnEx.Current</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest1._Chn.VoltageIn</Name>
+							<Name>MAIN.chn2._ChnEx.VoltageIn</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest1._Chn.VoltageOut</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest2._Chn.Status</Name>
-							<Type GUID="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}">StatusStructExtended</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest2._Chn.Load</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest2._Chn.Current</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest2._Chn.VoltageIn</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest2._Chn.VoltageOut</Name>
+							<Name>MAIN.chn2._ChnEx.VoltageOut</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.fbCylinderTest.fbCylinder.toHomePos</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbCylinderTest.fbCylinder.toWorkPos</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTest1._Chn.Control</Name>
+							<Name>MAIN.chn1._Chn.Control</Name>
 							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbTest2._Chn.Control</Name>
+							<Name>MAIN.chn2._Chn.Control</Name>
+							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.chn2._ChnEx.Control</Name>
 							<Type GUID="{FB823056-4D1E-8176-D315-C6FDFF390905}">OutputStruct</Type>
 						</Var>
 					</Vars>
+					<UnrestoredVarLinks ImportTime="2020-12-01T20:08:06">
+						<OwnerA Name="InputDst" Prefix="TIPC^TcOpen^TcOpen Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL9227-5500)">
+								<Link VarA="MAIN.fbTest1._Chn.Current" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 1^Current" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest1._Chn.Load" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 1^Load" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest1._Chn.Status" TypeA="StatusStructExtended" InOutA="0" GuidA="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}" VarB="OCP Inputs Channel 1^Status" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest1._Chn.VoltageIn" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 1^Voltage In" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest1._Chn.VoltageOut" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 1^Voltage Out" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.Current" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 2^Current" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.Load" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 2^Load" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.Status" TypeA="StatusStructExtended" InOutA="0" GuidA="{F0EEFCC6-D9C0-173B-43E0-BDF24CCE9798}" VarB="OCP Inputs Channel 2^Status" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.VoltageIn" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 2^Voltage In" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.VoltageOut" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="OCP Inputs Channel 2^Voltage Out" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^TcOpen^TcOpen Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL9227-5500)">
+								<Link VarA="MAIN.fbTest1._Chn.Control" TypeA="OutputStruct" InOutA="1" GuidA="{FB823056-4D1E-8176-D315-C6FDFF390905}" VarB="OCP Outputs Channel 1^Control" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbTest2._Chn.Control" TypeA="OutputStruct" InOutA="1" GuidA="{FB823056-4D1E-8176-D315-C6FDFF390905}" VarB="OCP Outputs Channel 2^Control" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id NeedCalleeCall="true">0</Id>
@@ -949,18 +1009,12 @@ Bit1: Value smaller than Limit2]]></Comment>
 	<Mappings>
 		<OwnerA Name="TIPC^TcOpen^TcOpen Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL9227-5500)">
-				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Current" VarB="OCP Inputs Channel 1^Current"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Load" VarB="OCP Inputs Channel 1^Load"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.Status" VarB="OCP Inputs Channel 1^Status"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.VoltageIn" VarB="OCP Inputs Channel 1^Voltage In"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest1._Chn.VoltageOut" VarB="OCP Inputs Channel 1^Voltage Out"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Current" VarB="OCP Inputs Channel 2^Current"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Load" VarB="OCP Inputs Channel 2^Load"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.Status" VarB="OCP Inputs Channel 2^Status"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.VoltageIn" VarB="OCP Inputs Channel 2^Voltage In"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbTest2._Chn.VoltageOut" VarB="OCP Inputs Channel 2^Voltage Out"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbTest1._Chn.Control" VarB="OCP Outputs Channel 1^Control"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbTest2._Chn.Control" VarB="OCP Outputs Channel 2^Control"/>
+				<Link VarA="PlcTask Inputs^MAIN.chn2._ChnEx.Current" VarB="OCP Inputs Channel 2^Current"/>
+				<Link VarA="PlcTask Inputs^MAIN.chn2._ChnEx.Load" VarB="OCP Inputs Channel 2^Load"/>
+				<Link VarA="PlcTask Inputs^MAIN.chn2._ChnEx.Status" VarB="OCP Inputs Channel 2^Status"/>
+				<Link VarA="PlcTask Inputs^MAIN.chn2._ChnEx.VoltageIn" VarB="OCP Inputs Channel 2^Voltage In"/>
+				<Link VarA="PlcTask Inputs^MAIN.chn2._ChnEx.VoltageOut" VarB="OCP Inputs Channel 2^Voltage Out"/>
+				<Link VarA="PlcTask Outputs^MAIN.chn2._ChnEx.Control" VarB="OCP Outputs Channel 1^Control"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
