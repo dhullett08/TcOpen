@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="FB_CylinderWithPressureFeedback_1" Id="{c8e7c96b-126a-404b-a1c3-300273b169c1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CylinderWithPressureFeedback_1 EXTENDS FB_Cylinder
+VAR
+	_rawPressureValue AT %I* : INT; // Link with analog pressure feedback device
+	_statusWord  AT %I* : ST_AnalogSensorStatusWord; // Link with Analog Status Word;
+	_targetPressure : INT;
+END_VAR
+VAR CONSTANT
+	ANALOG_MAX : INT := 32765;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="AnalogError" Id="{d589fa9a-9fa4-48e9-b82d-239c3a4cc59f}">
+      <Declaration><![CDATA[PROPERTY AnalogError : BOOL]]></Declaration>
+      <Get Name="Get" Id="{64404a6d-8451-468a-b586-7e95c20963aa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AnalogError := _statusWord.Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="AtPressure" Id="{6a9e020e-2d04-4336-9b74-5bc07390762b}">
+      <Declaration><![CDATA[PROPERTY AtPressure : BOOL]]></Declaration>
+      <Get Name="Get" Id="{087df8b4-4acf-42db-bf77-248476a782be}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AtPressure := ( _rawPressureValue >= TargetPressure) OR (AtWork AND _simulate) ;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="TargetPressure" Id="{3d7cc59d-eeb5-4a38-8ac7-a2bb98fd3df2}">
+      <Declaration><![CDATA[PROPERTY TargetPressure : INT]]></Declaration>
+      <Get Name="Get" Id="{af101ce1-976c-464f-b5e8-a64f52db6ab4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TargetPressure := _targetPressure;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{810f07c2-e412-413e-8700-e551b52b745b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[/// Simple value range check for setter
+IF TargetPressure > 0 AND TargetPressure < ANALOG_MAX THEN
+	_targetPressure := TargetPressure;	
+END_IF
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_CylinderWithPressureFeedback_1">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CylinderWithPressureFeedback_1.AnalogError.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CylinderWithPressureFeedback_1.AtPressure.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CylinderWithPressureFeedback_1.TargetPressure.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CylinderWithPressureFeedback_1.TargetPressure.Set">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
