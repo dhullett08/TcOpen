@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="TcoMessenger" Id="{bb89b26f-ec79-4812-bab7-3579b2b6d1be}" SpecialFunc="None">
+    <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Provides mechanism for delivering static messages to the supervising applications (SCADA/HMI).	
+				<remarks>			
+					<note type="important">
+						Each messenger has a single placeholder for the message; it stores the most important message from the last context cycle. 
+						If there are more messages in a single cycle for the same messenger then less important messages are discarded and replaced by 
+						the message with the category of higher severity.	
+					</note>
+				</remarks>			 
+			</summary>			
+		
+		</docu>
+~*)
+FUNCTION_BLOCK PUBLIC TcoMessenger IMPLEMENTS ITcoMessenger
+VAR			
+	(*~
+		<docu>
+			<summary>
+				Most important message of this instance of messenger; stores the most important message from the last context cycle. 
+				If there are more messages in a single cycle for the same
+				messenger then less important messages are discarded and replaced by the message with the category of higher severity.			 
+			</summary>			
+		</docu>
+	~*)
+	_mime : TcoMessage;
+	_Parent : ITcoObject;
+	_contextIdentity : ULINT;				
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Messages" Id="{56442304-2644-4fe1-b5d1-eb5248dd12e5}" />
+    <Method Name="Catastrophic" Id="{3ead99e7-d4fa-03f6-3060-81990c2076df}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'catastrophic' category to the message queue.
+				Use this category when there is a situation when the device cannot continue operations due to irrecoverable failure.				 
+			</summary>		
+		</docu>
+~*)
+METHOD PUBLIC Catastrophic
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Catastrophic);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{640fefd4-a9aa-0de1-3f5c-cce4bd50449f}">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Clears the message content.
+				<remarks>			
+					<note type="important">
+						This method is exposed for Rpc calls, for testing purposes. Rpc calls of this method must not be used in production code
+					</note>
+				</remarks>								 
+			</summary>		
+		</docu>
+~*)
+{attribute 'TcRpcEnable'}
+METHOD Clear
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_mime.TimeStamp :=  DT#1970-01-01-00:00;
+_mime.Text := '';
+_mime.Identity := 0;
+_mime.Category := eMessageCategory.None;
+_mime.Cycle := 0;	
+_mime.PerCycleCount := 0;	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Compose" Id="{3447ad14-6768-48d6-b294-87e00174ef1e}">
+      <Declaration><![CDATA[METHOD PROTECTED FINAL Compose 
+VAR_INPUT
+	Text : STRING(125);
+	Category : eMessageCategory;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF(_Parent <> 0 AND_THEN _Parent.Context <> 0 AND_THEN _Parent.Context.Rtc <> 0) THEN
+	_mime.TimeStamp :=  _Parent.Context.Rtc.NowLocal();
+	_mime.Text := Text;
+	_mime.Identity := _Parent.Identity;
+	_mime.Category := Category;
+	_mime.Cycle := _Parent.Context.StartCycleCount;	
+END_IF;
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Critical" Id="{a9264967-6c30-0c25-362d-a0380aaea992}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'critical' category to the message queue.
+				Use this category when a critical error occured, that is not recoverable by the means of software (reset/restore) and a detailed inspection is required.				 
+			</summary>		
+		</docu>
+~*)
+METHOD PUBLIC Critical
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Critical);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Debug" Id="{bd0230f7-b5de-4707-ba4a-f8b17cc23976}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'debug' category to the message queue.	
+			    Use when you need to report debug information for you as programmer. 			 
+			</summary>		
+		</docu>
+~*)
+METHOD PUBLIC Debug
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Debug);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Error" Id="{dc14c403-f11e-4200-ac36-567c3d997bf6}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'error' category to the message queue.
+				Use this categoty when there is a failure that cannot be immediately recovered and an intervention is needed. This is typically a situation when a device fails
+				to deliver expected result. 
+				Do not use this category to report information about failed process like measurement or detection.				 
+			</summary>						
+		</docu>
+~*)
+METHOD PUBLIC Error
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Error);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{23bbd1ba-9be3-4c0b-a177-bc9de93be447}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Parent : ITcoObject;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Parent := Parent;
+_contextIdentity := Parent.Identity;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Info" Id="{d1f4840f-86c5-482b-8fb7-443b9b1c585c}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'information' category to the message queue.	
+				Use when you want to deliver information to the user, that has only informative character and does not adversely affect a process.			 
+			</summary>			
+		</docu>
+~*)
+METHOD PUBLIC Info 
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Info);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Notify" Id="{1595dfe7-5719-459e-bdf2-0e7976c85511}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'notification' category to the message queue.
+				Use this category when you want to report a notification that may be of interest to the user, but does not adveresly affect a process.			 
+			</summary>				
+		</docu>
+~*)
+METHOD Notify 
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Notification);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Post" Id="{7e1c7e2b-5612-469e-9139-08754fd973ea}">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Creates message of given category for this messenger.				 
+			</summary>				
+		</docu>
+~*)
+METHOD PUBLIC Post 
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+	(*~
+		<docu>
+			<summary>
+				Message category.			 
+			</summary>			
+		</docu>
+	~*)
+	Category : eMessageCategory;	
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF(_Parent <> 0 AND_THEN _Parent.Context <> 0 AND_THEN _Parent.Context.Environment <> 0 AND_THEN _Parent.Context.Environment.Messaging <> 0) THEN
+	IF(Category < THIS^._Parent.Context.Environment.Messaging.MinLevel
+	  OR _Parent.Context.Environment.Messaging.IsSuspended) THEN
+		RETURN;
+	END_IF; 	
+	
+	_mime.PerCycleCount := _mime.PerCycleCount + 1;
+	// Same cycle filter for most important messge.
+	IF(_mime.Cycle = _Parent.Context.StartCycleCount) THEN		 	
+		IF(Category > _mime.Category) THEN	 
+			Compose(Message, Category);
+		END_IF;
+	ELSE
+	// Different cycle		
+		_mime.PerCycleCount := 1;	
+		Compose(Message, Category);		
+	END_IF;	
+END_IF;	
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Programming" Id="{1f1b6a21-6158-44a7-b79e-b3fcea42c4e1}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'programming error' category to the message queue.	
+				Use this category to inform about a possible programming error, defect in settings or missing information at a level of programming or system or process settings.			 
+			</summary>				
+		</docu>
+~*)
+METHOD PUBLIC Programming
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.ProgrammingError);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Trace" Id="{5a17dee2-c171-4127-9ee1-30d4a06a53bf}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'trace' category to the message queue.	
+				Use when you need to track detailed information about internal states of the program for detailed visibility. 
+				This is lowest level of category that can be used in production, for detailed observation of PLC program.			 
+			</summary>					
+		</docu>
+~*)
+METHOD PUBLIC Trace 
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Trace);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Warning" Id="{dd00674c-7475-44d4-8400-894897951e0b}" FolderPath="Messages\">
+      <Declaration><![CDATA[(*~
+		<docu>
+			<summary>
+				Adds message of 'warning' category to the message queue.
+				Use this category when you want to report to the user an information about a possible problem, that may adversly affect a process.
+				Information in this cateogory aims to help the user to identify a problem, the cause of such problem does not necessarily stops the process.				 
+			</summary>					
+		</docu>
+~*)
+METHOD PUBLIC Warning 
+VAR_INPUT
+	(*~
+		<docu>
+			<summary>
+				Arbitrary message string.			 
+			</summary>			
+		</docu>
+	~*)
+	Message : STRING(125);
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Post(Message, eMessageCategory.Warning);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

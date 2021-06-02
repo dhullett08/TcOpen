@@ -27,6 +27,9 @@ bld/
 *.VisualState.xml
 TestResult.xml
 
+# dotnet test results
+*.trx
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
@@ -131,6 +134,7 @@ publish/
 
 # NuGet Packages Directory
 packages/*
+.nuget/*
 ## TODO: If the tool you use requires repositories.config
 ## uncomment the next line
 #!packages/repositories.config
@@ -208,11 +212,28 @@ _Libraries/
 *.project.~u
 *.tsproj.bak
 *.xti.bak
+LineIDs.dbg
 
 # Inxton.Vortex.Framework 
 _Vortex/
+CompilerCache.md
+log.txt
+pal.txt
+_meta/
+_generated/
+*.g.cs
+*.lbz
+version.info
+*.plcproj.version.update
 
-# Documentation
+# IVF Tools
+_toolz/
+nugets/
 
-docs/TcOpen.Docs/
+# CodeRush
+.cr/
 
+*.TcCD
+
+# VSCode
+.vscode/

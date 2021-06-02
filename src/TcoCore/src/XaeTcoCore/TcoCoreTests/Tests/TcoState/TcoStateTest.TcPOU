@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="TcoStateTest" Id="{efe977d1-c2f8-4084-8704-172d8704be2b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcoStateTest EXTENDS TcoState
+VAR
+	_myIdentity						:	ULINT;
+	_myContextIdentity				:	ULINT;
+	_myContextStartCount 			:	ULINT;
+	_myContextEndCount				:	ULINT;
+	_myParentIdentity				:	ULINT;
+	_myState						:	INT;	
+	_tcoTaskTest_A					:	TcoTaskTest(THIS^);
+	_tcoTaskTest_B					:	TcoTaskTest(THIS^);
+	_tcoStateTest_A					:	TcoStateAutoRestoreTest(THIS^, eRestoreMode.None);
+	_tcoStateTest_B					:	TcoStateAutoRestoreTest(THIS^, eRestoreMode.None);
+	_onStateChangeCounter			:	INT;	
+	_autoRestoreToMyChildsEnabled	: 	BOOL;
+	_autoRestoreByMyParentEnabled	: 	BOOL;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CallTaskInstancies" Id="{d3874270-1310-467f-9c2f-efa3788ae22b}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL CallTaskInstancies]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_tcoTaskTest_A();
+
+_tcoTaskTest_B();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CleanUp" Id="{97d25468-22c5-42c9-8a2c-be94cbca7c7c}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL CleanUp]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ChangeState(0);
+_myState := State;	
+_onStateChangeCounter			:= 0;
+_autoRestoreToMyChildsEnabled	:= FALSE;
+_autoRestoreByMyParentEnabled	:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMessage" Id="{7b51bd8a-afe2-4dba-b6f3-e076e50ff483}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL GetMessage : STRING]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMessage := SUPER^._messenger._mime.Text;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStateChange" Id="{2efff8ba-6cfc-49c5-95bb-23754d8da191}">
+      <Declaration><![CDATA[METHOD PROTECTED OnStateChange 
+VAR_INPUT
+	PreviousState	: INT;
+	NewState 		: INT;
+END_VAR
+VAR
+	message	:	STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_onStateChangeCounter	:=	_onStateChangeCounter + 1;
+
+message := CONCAT('My state has been change from ', INT_TO_STRING(PreviousState));
+message := CONCAT(message, ' to the new state ');
+message := CONCAT(message, INT_TO_STRING(NewState));
+message := CONCAT(message, '.');
+
+THIS^.Messenger.Post(message,eMessageCategory.Debug);
+
+SUPER^.OnStateChange(PreviousState,NewState);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PostMessage" Id="{1cf19fab-faf4-4a89-aa3f-4a22ca64a534}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL PostMessage
+VAR_INPUT
+	Message	:	STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Messenger.Post(Message ,eMessageCategory.Debug);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReadOutAutoRestoreProperties" Id="{bc7f7afd-e36e-4b01-b682-4363a94409ab}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL ReadOutAutoRestoreProperties]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_autoRestoreToMyChildsEnabled	:= THIS^.IsAutoRestoreEnabled;
+_autoRestoreByMyParentEnabled	:= THIS^.AutoRestorable;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReadOutIdentities" Id="{b63ec51a-adb3-49d9-99bc-5688aeb0dc91}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL ReadOutIdentities]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_myIdentity			:=	THIS^.Identity;
+
+_myContextIdentity	:=	THIS^.Context.Identity;
+
+_myParentIdentity	:=	THIS^._Parent.Identity;
+		
+_myContextStartCount :=	THIS^.Context.StartCycleCount;
+
+_myContextEndCount	:=	THIS^.Context.EndCycleCount;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReadOutState" Id="{5e78c467-c718-4bb6-9c71-a1bf248462a9}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL ReadOutState]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_myState			:=	THIS^.State;
+
+THIS^._tcoTaskTest_A.ReadOutState();
+THIS^._tcoTaskTest_B.ReadOutState();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TriggerChangeState" Id="{700ce7cc-dcaf-42d5-92d9-f568d5058a79}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL TriggerChangeState
+VAR_INPUT
+	NewState : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ChangeState(NewState);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TriggerChangeStateWithObjectRestore" Id="{20715526-f167-4822-9121-e7dd33bd0a9c}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL TriggerChangeStateWithObjectRestore
+VAR_INPUT
+	NewState : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ChangeState(NewState).RestoreObject(THIS^._tcoTaskTest_A).RestoreObject(THIS^._tcoTaskTest_B);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TriggerRestore" Id="{e7cb051e-64b7-4a16-8b2b-2a6659a2020b}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL TriggerRestore
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Restore();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TriggerTaskInvoke" Id="{b4293d91-dd5e-4ff8-a9d2-e2601a3de3ce}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL TriggerTaskInvoke]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._tcoTaskTest_A.Invoke();
+
+THIS^._tcoTaskTest_B.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="TcoObjectTest" Id="{e84228ff-9c33-47a4-a38e-640688a82a88}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcoObjectTest EXTENDS TcoCore.TcoObject
+VAR
+	_myIdentity				:	ULINT;
+	_myContextIdentity		:	ULINT;
+	_myContextStartCount 	:	ULINT;
+	_myContextEndCount		:	ULINT;
+	_myParentIdentity		:	ULINT;
+	_tcoTaskTest_A			:	TcoTaskTest(THIS^);
+	_tcoTaskTest_B			:	TcoTaskTest(THIS^);
+	_tcoStateTest_A			:	TcoStateTest(THIS^, eRestoreMode.AutoRestoreMembers);
+	_tcoStateTest_B			:	TcoStateTest(THIS^, eRestoreMode.None);
+	// Object equality
+	_tcoObjectEqualsTestObj1 	:   TcoObjectEqualsTest(THIS^);
+	_tcoObjectEqualsTestObj2 	:   TcoObjectEqualsTest(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CallTaskInstancies" Id="{ca9ba4d2-6103-4337-95bc-465f8f83317e}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL CallTaskInstancies]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_tcoTaskTest_A();
+
+_tcoTaskTest_B();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EqualsOverrideTest" Id="{ee60d2fd-b5db-0d20-0c27-57a751cde2ce}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD PUBLIC EqualsOverrideTest : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EqualsOverrideTest := _tcoObjectEqualsTestObj1.EqualsTo(_tcoObjectEqualsTestObj2);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EqualsTest" Id="{9f06ff61-1678-0fe4-0121-54cfb8b16218}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD PUBLIC EqualsTest : BOOL
+VAR_INPUT
+    _case : INT;
+END_VAR
+
+VAR
+    referenceTo_a_TcoStateTest : REFERENCE TO TcoStateTest;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE _case OF
+    0:
+        referenceTo_a_TcoStateTest REF= _tcoStateTest_A;
+        EqualsTest := _tcoStateTest_A.EqualsTo(referenceTo_a_TcoStateTest);
+    1:
+        EqualsTest := _tcoStateTest_A.EqualsTo(_tcoStateTest_B);
+    4:
+        EqualsTest := _tcoStateTest_B.EqualsTo(_tcoStateTest_A);
+    2:
+        EqualsTest := _tcoObjectEqualsTestObj1.EqualsTo(_tcoObjectEqualsTestObj1);
+    3:
+        EqualsTest := _tcoObjectEqualsTestObj1.EqualsTo(_tcoObjectEqualsTestObj2);
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReadOutIdentities" Id="{b42bfa48-43e7-40ad-83bf-1125b1638f9d}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD INTERNAL ReadOutIdentities]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_myIdentity			:=	THIS^.Identity;
+
+_myContextIdentity	:=	THIS^.Context.Identity;
+		
+_myContextStartCount :=	THIS^.Context.StartCycleCount;
+
+_myContextEndCount	:=	THIS^.Context.EndCycleCount;
+
+_myParentIdentity	:=	THIS^._Parent.Identity;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
